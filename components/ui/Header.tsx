@@ -1,0 +1,210 @@
+'use client'
+
+// O "Header" é o cabeçalho do site (onde fica o logo e o menu).
+// Ele aparece em todas as páginas do site.
+
+import Link from 'next/link'
+import { ShoppingCart, Search, Menu, X } from 'lucide-react'
+import { useCart } from '@/lib/store'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+export default function Header() {
+    const totalItems = useCart((state) => state.getTotalItems())
+    const [isScrolled, setIsScrolled] = useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [isSearchOpen, setIsSearchOpen] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true)
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20)
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
+    return (
+        <>
+            <header
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'header-blur shadow-lg' : 'bg-transparent'
+                    }`}
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-20">
+                        {/* Logo da Marca - Clicar aqui sempre volta para a Home */}
+                        <Link href="/" className="flex items-center space-x-2">
+                            <img
+                                src="/logo-stray.webp"
+                                alt="Stray Company"
+                                className="h-12 w-auto"
+                            />
+                        </Link>
+
+                        {/* Menu de Navegação para Computador (Desktop) */}
+                        <nav className="hidden md:flex items-center space-x-8">
+                            <div className="relative group">
+                                <Link
+                                    href="/catalogo"
+                                    className="text-gray-300 hover:text-white transition-colors font-medium flex items-center space-x-1"
+                                >
+                                    <span>Catálogo</span>
+                                </Link>
+                                <div className="absolute top-full left-0 mt-2 w-48 bg-black/90 backdrop-blur-lg border border-white/10 rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                                    {/* Link para a categoria de Tênis */}
+                                    <Link href="/catalogo/tenis" className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
+                                        Sneakers (Tênis)
+                                    </Link>
+                                    {/* Link para a categoria de Roupas */}
+                                    <Link href="/catalogo/roupas" className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
+                                        Streetwear (Roupas)
+                                    </Link>
+                                </div>
+                            </div>
+                            <Link
+                                href="/promocoes"
+                                className="text-gray-300 hover:text-white transition-colors font-medium"
+                            >
+                                Promoções
+                            </Link>
+                        </nav>
+
+                        {/* Actions */}
+                        <div className="flex items-center space-x-4">
+                            {/* Search */}
+                            <button
+                                onClick={() => setIsSearchOpen(true)}
+                                className="p-2 text-gray-300 hover:text-white transition-colors"
+                                aria-label="Buscar"
+                            >
+                                <Search size={20} />
+                            </button>
+
+                            {/* Cart */}
+                            <Link
+                                href="/carrinho"
+                                className="relative p-2 text-gray-300 hover:text-white transition-colors"
+                                aria-label="Carrinho"
+                            >
+                                <ShoppingCart size={20} />
+                                {isMounted && totalItems > 0 && (
+                                    <span className="absolute -top-1 -right-1 bg-orange-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                                        {totalItems}
+                                    </span>
+                                )}
+                            </Link>
+
+                            {/* Mobile Menu Button */}
+                            <button
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                className="md:hidden p-2 text-gray-300 hover:text-white transition-colors"
+                                aria-label="Menu"
+                            >
+                                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Menu */}
+                <AnimatePresence>
+                    {isMobileMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="md:hidden glass border-t border-gray-800"
+                        >
+                            <nav className="px-4 py-4 space-y-2">
+                                <Link
+                                    href="/masculino"
+                                    className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Masculino
+                                </Link>
+                                <Link
+                                    href="/feminino"
+                                    className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Feminino
+                                </Link>
+                                <Link
+                                    href="/catalogo"
+                                    className="block py-2 text-gray-300 hover:text-white transition-colors font-semibold mt-2"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Catálogo Completo
+                                </Link>
+                                <div className="pl-4 space-y-1 mb-2">
+                                    <Link
+                                        href="/catalogo/tenis"
+                                        className="block py-2 text-gray-400 hover:text-white transition-colors text-sm"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        • Sneakers (Tênis)
+                                    </Link>
+                                    <Link
+                                        href="/catalogo/roupas"
+                                        className="block py-2 text-gray-400 hover:text-white transition-colors text-sm"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        • Streetwear (Roupas)
+                                    </Link>
+                                </div>
+                                <Link
+                                    href="/promocoes"
+                                    className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Promoções
+                                </Link>
+                            </nav>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </header>
+
+            {/* Search Modal */}
+            <AnimatePresence>
+                {isSearchOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-start justify-center pt-32"
+                        onClick={() => setIsSearchOpen(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="w-full max-w-2xl mx-4"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="glass rounded-2xl p-6">
+                                <div className="flex items-center space-x-4">
+                                    <Search className="text-gray-400" size={24} />
+                                    <input
+                                        type="text"
+                                        placeholder="Buscar produtos..."
+                                        className="flex-1 bg-transparent border-none outline-none text-white text-lg placeholder-gray-500"
+                                        autoFocus
+                                    />
+                                    <button
+                                        onClick={() => setIsSearchOpen(false)}
+                                        className="text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        <X size={24} />
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
+    )
+}
