@@ -39,7 +39,7 @@ export default function HeroBanner() {
                     transition={{ duration: 0.6, delay: 0.4 }}
                     className="text-gray-400 text-lg md:text-xl font-light tracking-wide"
                 >
-                    Luxury Street Minimal
+                    Stray Noir
                 </motion.p>
 
                 {/* Scroll Indicator */}
