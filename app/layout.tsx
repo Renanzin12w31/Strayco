@@ -18,8 +18,8 @@ const outfit = Outfit({
 })
 
 export const metadata: Metadata = {
-    title: 'Supply - Luxury Street Minimal',
-    description: 'E-commerce premium de moda streetwear com estilo minimalista e luxuoso',
+    title: 'Supply - Stray Noir',
+    description: 'Plataforma de moda streetwear premium que une minimalismo, luxo contemporâneo e identidade urbana.',
     keywords: ['streetwear', 'moda', 'luxury', 'minimal', 'roupas'],
 }
 
