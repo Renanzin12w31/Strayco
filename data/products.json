@@ -121,13 +121,13 @@
   },
   {
     "id": "16",
-    "name": "Nike Ja 3 Morant \"Multicolor Mismatch\"",
-    "description": "Nike Ja 3 Morant Mismatch. Design descombinado e cores vibrantes.",
-    "price": 600,
+    "name": "Adidas Samba \"Preto\"",
+    "description": "Confeccionado em couro premium com sobreposição em camurça na biqueira, o Samba oferece durabilidade, ajuste confortável e visual sofisticado. A entressola de perfil baixo garante estabilidade, enquanto o solado de borracha proporciona excelente tração no dia a dia.",
+    "price": 500,
     "categoryId": "tenis",
-    "images": ["/images/products/tenis/nike-ja-3-multicolor.webp"],
+    "images": ["/images/products/tenis/adidas-samba-preto.webp"],
     "sizes": ["38", "39", "40", "41", "42", "43", "44"],
-    "colors": ["Multicolor"],
+    "colors": ["preto"],
     "stock": 10,
     "featured": false,
     "isNew": true,
@@ -922,19 +922,36 @@
     "onSale": false,
     "gender": "UNISEX"
   },
-  {
-    "id": "83",
-    "name": "Denim Tears Cotton Wreath Short - Black/White",
-    "description": "Shorts Denim Tears Cotton Wreath em preto com detalhes brancos. Edição bicolor premium.",
-    "price": 330,
-    "categoryId": "roupas",
-    "images": ["/images/products/roupas/dt-wreath-short-blackwhite/imagem.webp"],
-    "sizes": ["P", "M", "G", "GG"],
-    "colors": ["Preto/Branco"],
-    "stock": 15,
-    "featured": false,
-    "isNew": true,
-    "onSale": false,
-    "gender": "UNISEX"
-  }
+ {
+  "id": "83",
+  "name": "Denim Tears Cotton Wreath Short - Black/White",
+  "description": "Shorts Denim Tears Cotton Wreath em preto com detalhes brancos. Edição bicolor premium.",
+  "price": 330,
+  "categoryId": "roupas",
+  "images": ["/images/products/roupas/dt-wreath-short-blackwhite/imagem.webp"],
+  "sizes": ["P", "M", "G", "GG"],
+  "colors": ["Preto/Branco"],
+  "stock": 15,
+  "featured": false,
+  "isNew": true,
+  "onSale": false,
+  "gender": "UNISEX"
+},
+{
+  "id": "200",
+  "name": "Adidas Samba",
+  "description": "Perfeito para compor looks casuais ou street, o Adidas Samba é a escolha ideal para quem busca autenticidade, conforto e estilo clássico em qualquer ocasião.",
+  "price": 500,
+  "categoryId": "tenis",
+  "images": [
+    "/images/products/tenis/adidas-samba-rosa.webp"
+  ],
+  "sizes": ["34", "35", "36", "37", "38", "39", "40"],
+  "colors": ["Rosa / Branco"],
+  "stock": 10,
+  "featured": false,
+  "isNew": true,
+  "onSale": false,
+  "gender": "FEMININO"
+}
 ]
