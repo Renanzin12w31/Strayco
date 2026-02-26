@@ -68,6 +68,12 @@ export default function Header() {
                             >
                                 Promoções
                             </Link>
+                            <Link
+  href="/trocas-e-devolucoes"
+  className="text-gray-300 hover:text-white transition-colors font-medium"
+>
+  Trocas e Devoluções
+</Link>
                         </nav>
 
                         {/* Actions */}
@@ -161,6 +167,13 @@ export default function Header() {
                                 >
                                     Promoções
                                 </Link>
+                                <Link
+  href="/trocas-e-devolucoes"
+  className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
+  onClick={() => setIsMobileMenuOpen(false)}
+>
+  Trocas e Devoluções
+</Link>
                             </nav>
                         </motion.div>
                     )}
