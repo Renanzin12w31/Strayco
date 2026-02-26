@@ -177,6 +177,13 @@ export default function Header() {
 >
   Trocas e Devoluções
 </Link>
+                                <Link
+  href="/duvidas-frequentes"
+  className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
+  onClick={() => setIsMobileMenuOpen(false)}
+>
+  Dúvidas Frequentes
+</Link>
                             </nav>
                         </motion.div>
                     )}
