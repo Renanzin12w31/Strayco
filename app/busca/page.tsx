@@ -1,11 +1,11 @@
 "use client"
 
-import { useMemo } from "react"
+import { Suspense, useMemo } from "react"
 import { useSearchParams } from "next/navigation"
 import { searchProducts } from "@/lib/data"
 import ProductCard from "@/components/product/ProductCard"
 
-export default function BuscaPage() {
+function BuscaContent() {
   const searchParams = useSearchParams()
   const query = (searchParams.get("q") ?? "").trim()
 
@@ -17,7 +17,9 @@ export default function BuscaPage() {
     <div className="min-h-screen px-6 py-24">
       <div className="max-w-7xl mx-auto">
         <div className="mb-10">
-          <h1 className="text-3xl font-bold text-white">Resultados da busca</h1>
+          <h1 className="text-3xl font-bold text-white">
+            Resultados da busca
+          </h1>
 
           {query ? (
             <p className="text-gray-400 mt-2">
@@ -26,13 +28,17 @@ export default function BuscaPage() {
               {results.length} resultado(s)
             </p>
           ) : (
-            <p className="text-gray-400 mt-2">Digite algo para buscar.</p>
+            <p className="text-gray-400 mt-2">
+              Digite algo para buscar.
+            </p>
           )}
         </div>
 
         {query && results.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-gray-400">Nenhum produto encontrado.</p>
+            <p className="text-gray-400">
+              Nenhum produto encontrado.
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -53,5 +59,13 @@ export default function BuscaPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function BuscaPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black" />}>
+      <BuscaContent />
+    </Suspense>
   )
 }
