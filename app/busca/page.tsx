@@ -1,41 +1,38 @@
+"use client"
+
+import { useMemo } from "react"
+import { useSearchParams } from "next/navigation"
 import { searchProducts } from "@/lib/data"
 import ProductCard from "@/components/product/ProductCard"
 
-export const dynamic = "force-dynamic"
+export default function BuscaPage() {
+  const searchParams = useSearchParams()
+  const query = (searchParams.get("q") ?? "").trim()
 
-export default function BuscaPage({
-  searchParams,
-}: {
-  searchParams: { q?: string }
-}) {
-  const query = searchParams.q ?? ""
-  const results = query ? searchProducts(query) : []
+  const results = useMemo(() => {
+    return query ? searchProducts(query) : []
+  }, [query])
 
   return (
     <div className="min-h-screen px-6 py-24">
       <div className="max-w-7xl mx-auto">
-
         <div className="mb-10">
-          <h1 className="text-3xl font-bold text-white">
-            Resultados da busca
-          </h1>
+          <h1 className="text-3xl font-bold text-white">Resultados da busca</h1>
 
-          {query && (
+          {query ? (
             <p className="text-gray-400 mt-2">
               Buscando por:{" "}
-              <span className="text-white font-semibold">
-                {query}
-              </span>{" "}
-              — {results.length} resultado(s)
+              <span className="text-white font-semibold">{query}</span> —{" "}
+              {results.length} resultado(s)
             </p>
+          ) : (
+            <p className="text-gray-400 mt-2">Digite algo para buscar.</p>
           )}
         </div>
 
-        {results.length === 0 ? (
+        {query && results.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-gray-400">
-              Nenhum produto encontrado.
-            </p>
+            <p className="text-gray-400">Nenhum produto encontrado.</p>
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -46,7 +43,7 @@ export default function BuscaPage({
                 name={product.name}
                 price={product.price}
                 salePrice={product.salePrice}
-                image={product.images[0]}
+                image={product.images?.[0]}
                 featured={product.featured}
                 isNew={product.isNew}
                 onSale={product.onSale}
@@ -54,7 +51,6 @@ export default function BuscaPage({
             ))}
           </div>
         )}
-
       </div>
     </div>
   )
