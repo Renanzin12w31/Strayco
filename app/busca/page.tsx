@@ -1,6 +1,8 @@
 import { searchProducts } from "@/lib/data"
 import ProductCard from "@/components/product/ProductCard"
 
+export const dynamic = "force-dynamic"
+
 export default function BuscaPage({
   searchParams,
 }: {
@@ -52,6 +54,7 @@ export default function BuscaPage({
             ))}
           </div>
         )}
+
       </div>
     </div>
   )
