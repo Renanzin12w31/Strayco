@@ -8,6 +8,7 @@ import { ShoppingCart, Search, Menu, X } from 'lucide-react'
 import { useCart } from '@/lib/store'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useRouter } from "next/navigation"
 
 export default function Header() {
     const totalItems = useCart((state) => state.getTotalItems())
@@ -15,6 +16,17 @@ export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
+    const router = useRouter()
+const [searchQuery, setSearchQuery] = useState("")
+
+function submitSearch() {
+  const q = searchQuery.trim()
+  if (!q) return
+
+  setIsSearchOpen(false)
+  setSearchQuery("")
+  router.push(`/busca?q=${encodeURIComponent(q)}`)
+}
 
     useEffect(() => {
         setIsMounted(true)
@@ -210,12 +222,20 @@ export default function Header() {
                             <div className="glass rounded-2xl p-6">
                                 <div className="flex items-center space-x-4">
                                     <Search className="text-gray-400" size={24} />
-                                    <input
-                                        type="text"
-                                        placeholder="Buscar produtos..."
-                                        className="flex-1 bg-transparent border-none outline-none text-white text-lg placeholder-gray-500"
-                                        autoFocus
-                                    />
+                                 <input
+  type="text"
+  placeholder="Buscar produtos..."
+  className="flex-1 bg-transparent border-none outline-none text-white text-lg placeholder-gray-500"
+  autoFocus
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+      submitSearch()
+    }
+  }}
+/>
                                     <button
                                         onClick={() => setIsSearchOpen(false)}
                                         className="text-gray-400 hover:text-white transition-colors"
