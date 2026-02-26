@@ -74,6 +74,9 @@ export default function Header() {
 >
   Trocas e Devoluções
 </Link>
+                            <Link href="/duvidas-frequentes">
+  Dúvidas Frequentes
+</Link>
                         </nav>
 
                         {/* Actions */}
