@@ -95,7 +95,7 @@
     "description": "Nike Ja 3 Morant Channel 12. Tênis de basquete com design vibrante e tecnologia Zoom.",
     "price": 600,
     "categoryId": "tenis",
-    "images": ["/images/products/tenis/ja-3-channel"],
+    "images": ["/images/products/tenis/ja-3-channel.webp"],
     "sizes": ["38", "39", "40", "41", "42", "43", "44"],
     "colors": ["Multicolor"],
     "stock": 15,
