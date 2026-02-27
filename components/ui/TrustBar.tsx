@@ -8,11 +8,11 @@ const items = [
     title: 'Envio rápido',
     desc: 'Postagem em até 24–48h',
   },
-  {
-    icon: CreditCard,
-    title: 'Pague no cartão',
-    desc: 'Checkout simples e seguro',
-  },
+  // {
+  //   icon: CreditCard,
+  //   title: 'Pague no cartão',
+  //   desc: 'Checkout simples e seguro',
+  // },
   {
     icon: ShieldCheck,
     title: 'Compra segura',
@@ -53,4 +53,5 @@ export default function TrustBar() {
       </div>
     </section>
   )
+
 }
