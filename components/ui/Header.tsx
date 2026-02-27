@@ -49,29 +49,6 @@ export default function Header() {
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center space-x-8">
               <Link
-                href="/masculino"
-                className="text-gray-300 hover:text-white transition-colors font-medium"
-              >
-                Masculino
-              </Link>
-
-              <Link
-                href="/feminino"
-                className="text-gray-300 hover:text-white transition-colors font-medium"
-              >
-                Feminino
-              </Link>
-
-              <Link
-                href="/unisex"
-                className="text-gray-300 hover:text-white transition-colors font-medium"
-              >
-                Unisex
-              </Link>
-
-              {/* Se quiser manter o catálogo completo, deixa esse link.
-                  Se NÃO quiser, pode apagar. */}
-              <Link
                 href="/catalogo"
                 className="text-gray-300 hover:text-white transition-colors font-medium"
               >
@@ -148,53 +125,12 @@ export default function Header() {
             >
               <nav className="px-4 py-4 space-y-2">
                 <Link
-                  href="/masculino"
-                  className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Masculino
-                </Link>
-
-                <Link
-                  href="/feminino"
-                  className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Feminino
-                </Link>
-
-                <Link
-                  href="/unisex"
-                  className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Unisex
-                </Link>
-
-                <Link
                   href="/catalogo"
-                  className="block py-2 text-gray-300 hover:text-white transition-colors font-semibold mt-2"
+                  className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Catálogo Completo
+                  Catálogo
                 </Link>
-
-                <div className="pl-4 space-y-1 mb-2">
-                  <Link
-                    href="/catalogo/tenis"
-                    className="block py-2 text-gray-400 hover:text-white transition-colors text-sm"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    • Sneakers (Tênis)
-                  </Link>
-                  <Link
-                    href="/catalogo/roupas"
-                    className="block py-2 text-gray-400 hover:text-white transition-colors text-sm"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    • Streetwear (Roupas)
-                  </Link>
-                </div>
 
                 <Link
                   href="/promocoes"
