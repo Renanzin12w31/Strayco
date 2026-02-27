@@ -1,69 +1,66 @@
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
-
-// 👇 AJUSTE ESTE IMPORT para o caminho real do seu array de produtos
-// Exemplo comum: import { products } from '@/data/products'
-import { products } from '@/data/products'
+import { getProductsForCatalogGender } from '@/lib/data'
+import ProductCard from '@/components/product/ProductCard'
 
 type Product = {
   id: string
   name: string
-  description: string
   price: number
+  images?: string[]
+  featured?: boolean
+  isNew?: boolean
+  onSale?: boolean
   categoryId: string
-  images: string[]
   gender: 'MALE' | 'FEMALE' | 'UNISEX'
 }
 
-export default function AcessoriosPage({ params }: { params: { gender: string } }) {
-  const gender = params.gender
+type Props = {
+  params: {
+    gender: string
+  }
+}
 
-  // Você quer acessórios só no feminino
-  if (gender !== 'feminino') return notFound()
+export default function AcessoriosPage({ params }: Props) {
+  const genderSlug = (params.gender || '').toLowerCase()
 
-  const items = (products as Product[]).filter(
-    (p) => p.categoryId === 'acessorios' && (p.gender === 'FEMALE' || p.gender === 'UNISEX')
+  // ✅ Acessórios só no feminino
+  if (genderSlug !== 'feminino') return notFound()
+
+  const genderKey: Product['gender'] = 'FEMALE'
+
+  const products = getProductsForCatalogGender(genderKey).filter(
+    (p: Product) => p.categoryId === 'acessorios'
   )
 
   return (
-    <main className="min-h-screen bg-black pt-24 pb-16">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="mb-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Acessórios</h1>
-          <p className="text-gray-400">Colar e pulseira Van Cleef e outros acessórios</p>
+    <main className="min-h-screen bg-black pt-24 pb-16 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-12">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+            Acessórios
+          </h1>
+          <p className="text-gray-400">
+            Explore nossos acessórios ({products.length} produtos)
+          </p>
         </div>
 
-        {items.length === 0 ? (
-          <div className="text-gray-300">
-            Nenhum acessório encontrado. Verifique se os produtos têm:
-            <span className="text-white"> categoryId: "acessorios" </span>
-            e <span className="text-white"> gender: "FEMALE" ou "UNISEX"</span>.
+        {products.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-gray-400">Nenhum acessório disponível</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {items.map((p) => (
-              <Link
-                key={p.id}
-                href={`/produto/${p.id}`}
-                className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition"
-              >
-                <div className="aspect-square bg-black/40">
-                  {/* imagem simples sem next/image pra evitar dor de cabeça.
-                      se quiser, eu troco pra Image */}
-                  <img
-                    src={p.images?.[0] || '/images/placeholder.webp'}
-                    alt={p.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-
-                <div className="p-3">
-                  <div className="text-white font-semibold text-sm">{p.name}</div>
-                  <div className="text-gray-400 text-xs line-clamp-2">{p.description}</div>
-                  <div className="text-white mt-2 font-bold">R$ {p.price}</div>
-                </div>
-              </Link>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {products.map((product: Product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                price={product.price}
+                image={product.images?.[0] || '/logo-stray.webp'}
+                featured={product.featured}
+                isNew={product.isNew}
+                onSale={product.onSale}
+              />
             ))}
           </div>
         )}
