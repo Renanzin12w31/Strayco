@@ -19,7 +19,8 @@ export default function CatalogoPage() {
           <Link href="/catalogo/masculino" className="group">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
-                src="/images/catalog/masculino.webp"
+                src="/public/images/products 
+/tenis/air-max-tn-sunset.webp"
                 alt="Masculino"
                 fill
                 className="object-cover opacity-70 group-hover:opacity-90 transition"
@@ -35,7 +36,8 @@ export default function CatalogoPage() {
           <Link href="/catalogo/feminino" className="group">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
-                src="/images/catalog/feminino.webp"
+                src="/public/images/products 
+/tenis/adidas-samba-rosa.webp"
                 alt="Feminino"
                 fill
                 className="object-cover opacity-70 group-hover:opacity-90 transition"
@@ -51,7 +53,8 @@ export default function CatalogoPage() {
           <Link href="/catalogo/unisex" className="group">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
-                src="/images/catalog/unisex.webp"
+                src="/public/images/products 
+/tenis/nike-air-max-dn-black-purple.webp"
                 alt="Unisex"
                 fill
                 className="object-cover opacity-70 group-hover:opacity-90 transition"
@@ -59,7 +62,7 @@ export default function CatalogoPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               <div className="absolute bottom-6 left-6">
                 <h2 className="text-3xl font-bold text-white">Unisex</h2>
-                <p className="text-gray-300">Somente UNISEX</p>
+                <p className="text-gray-300"> UNISEX</p>
               </div>
             </div>
           </Link>
