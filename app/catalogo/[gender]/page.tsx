@@ -3,9 +3,9 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 const genderMap = {
-  masculino: { title: 'Masculino', subtitle: 'MALE + UNISEX' },
-  feminino: { title: 'Feminino', subtitle: 'FEMALE + UNISEX' },
-  unisex: { title: 'Unisex', subtitle: 'Somente UNISEX' },
+  masculino: { title: 'Masculino' },
+  feminino: { title: 'Feminino' },
+  unisex: { title: 'Unisex' },
 } as const
 
 type GenderSlug = keyof typeof genderMap
@@ -21,19 +21,17 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
             {genderMap[gender].title}
           </h1>
-          <p className="text-gray-400 text-lg">
-            {genderMap[gender].subtitle}
-          </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           <Link href={`/catalogo/${gender}/tenis`} className="group">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
-                src="/images/catalog/tenis.webp"
+                src="/images/products/tenis/air-max-tn-sunset.webp"
                 alt="Sneakers"
                 fill
                 className="object-cover opacity-70 group-hover:opacity-90 transition"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               <div className="absolute bottom-6 left-6">
@@ -46,7 +44,7 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
           <Link href={`/catalogo/${gender}/roupas`} className="group">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
-                src="/images/catalog/roupas.webp"
+                src="/images/products/roupas/denim-jacket-washed-black/imagem.webp"
                 alt="Streetwear"
                 fill
                 className="object-cover opacity-70 group-hover:opacity-90 transition"
