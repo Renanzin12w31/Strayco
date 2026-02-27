@@ -53,7 +53,7 @@ export default function TenisPage({ params }: Props) {
                 id={product.id}
                 name={product.name}
                 price={product.price}
-                image={product.images?.[0]}
+                image={product.images?.[0] || '/logo-stray.webp'}
                 featured={product.featured}
                 isNew={product.isNew}
                 onSale={product.onSale}
@@ -65,3 +65,4 @@ export default function TenisPage({ params }: Props) {
     </main>
   )
 }
+
