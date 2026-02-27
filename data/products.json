@@ -954,16 +954,16 @@
     "isNew": true,
     "onSale": false,
     "gender": "FEMALE"
-  }
+  },
   {
-  "id": "301",
-  "name": "Van Cleef Necklace",
-  "description": "Colar delicado com pingente floral em acabamento dourado e detalhe central em tom preto profundo, trazendo equilíbrio entre elegância clássica e estilo contemporâneo. Uma peça minimalista e sofisticada, ideal para elevar produções casuais ou complementar looks mais refinados com discrição e personalidade.",
-  "price": 370,
-  "categoryId": "acessorios",
-  "images": [
-    "/images/products/acessorios/vancleef-corrente.webp"
-  ],
+    "id": "301",
+    "name": "Van Cleef Necklace",
+    "description": "Colar delicado com pingente floral em acabamento dourado e detalhe central em tom preto profundo, trazendo equilíbrio entre elegância clássica e estilo contemporâneo. Uma peça minimalista e sofisticada, ideal para elevar produções casuais ou complementar looks mais refinados com discrição e personalidade.",
+    "price": 370,
+    "categoryId": "acessorios",
+    "images": [
+      "/images/products/acessorios/vancleef-corrente.webp"
+    ],
   "sizes": ["Único"],
   "colors": ["Black"],
   "stock": 8,
