@@ -12,22 +12,22 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "2",
-    "name": "Nike Air Force 1 Low Supreme White",
-    "description": "Colaboração exclusiva entre Nike e Supreme. Air Force 1 Low em couro branco premium com o icônico box logo Supreme em vermelho.",
-    "price": 600,
+    "name": "Nike Shox Ride 2",
+    "description": "Colaboração exclusiva entre Nike e Supreme. Nike Shox Ride 2.",
+    "price": 450,
     "categoryId": "tenis",
-    "images": ["/images/products/tenis/air-force-1-supreme.webp"],
+    "images": ["/images/products/tenis/Shox-Ride-2.webp"],
     "sizes": ["38", "39", "40", "41", "42", "43", "44"],
-    "colors": ["Branco/Vermelho"],
+    "colors": ["Olive/Electric Green"],
     "stock": 8,
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "3",
@@ -42,7 +42,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "8",
@@ -57,7 +57,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "9",
@@ -72,7 +72,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "10",
@@ -87,7 +87,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "14",
@@ -102,17 +102,20 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "15",
-    "name": "Nike Ja 3 Morant \"Black\"",
-    "description": "Nike Ja 3 Morant em Black. Tênis de basquete totalmente preto.",
-    "price": 600,
+    "name": "Sabrina 2"",
+    "description": "O Nike Sabrina 2 é o segundo modelo assinatura da jogadora Sabrina Ionescu, desenvolvido para máxima agilidade e controle em quadra. Projetado especialmente para armadores e jogadores rápidos, o tênis oferece amortecimento responsivo, excelente tração multidirecional e ajuste firme que garante estabilidade em mudanças rápidas de direção. Seu design moderno combina leveza, conforto e performance de alto nível, ideal tanto para o basquete competitivo quanto para o uso lifestyle.",
+    "price": 500,
     "categoryId": "tenis",
-    "images": ["/images/products/tenis/nike-ja-3-black.webp"],
+      "images": [
+    "/images/products/tenis/sabrina-2-1.webp",
+    "/images/products/tenis/sabrina-2-2.webp"
+  ],
     "sizes": ["38", "39", "40", "41", "42", "43", "44"],
-    "colors": ["Preto"],
+    "colors": ["All-Star", "Branco"],
     "stock": 15,
     "featured": false,
     "isNew": true,
@@ -132,7 +135,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "18",
@@ -147,7 +150,7 @@
     "featured": false,
     "isNew": false,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "28",
@@ -162,7 +165,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "29",
@@ -177,7 +180,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "31",
@@ -192,7 +195,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "32",
@@ -207,7 +210,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "35",
@@ -222,7 +225,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "36",
@@ -237,7 +240,7 @@
     "featured": false,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "37",
@@ -252,7 +255,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "38",
@@ -267,7 +270,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "39",
@@ -282,7 +285,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "40",
@@ -297,7 +300,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "41",
@@ -312,7 +315,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "42",
@@ -327,7 +330,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "43",
@@ -342,7 +345,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "44",
@@ -357,7 +360,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "45",
@@ -372,7 +375,7 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
   {
     "id": "46",
@@ -387,9 +390,9 @@
     "featured": true,
     "isNew": true,
     "onSale": false,
-    "gender": "UNISEX"
+    "gender": "MALE"
   },
-  {
+    {
     "id": "47",
     "name": "SYNA Dynamic Track Top - Grey",
     "description": "Jaqueta SYNA Dynamic Track Top em colorblock cinza, rosa e preto. Design moderno com capuz, mangas raglan pretas e painel rosa característico no peito. Múltiplos bolsos com zíper frontal para funcionalidade máxima.",
@@ -922,36 +925,34 @@
     "onSale": false,
     "gender": "UNISEX"
   },
- {
-  "id": "83",
-  "name": "Denim Tears Cotton Wreath Short - Black/White",
-  "description": "Shorts Denim Tears Cotton Wreath em preto com detalhes brancos. Edição bicolor premium.",
-  "price": 330,
-  "categoryId": "roupas",
-  "images": ["/images/products/roupas/dt-wreath-short-blackwhite/imagem.webp"],
-  "sizes": ["P", "M", "G", "GG"],
-  "colors": ["Preto/Branco"],
-  "stock": 15,
-  "featured": false,
-  "isNew": true,
-  "onSale": false,
-  "gender": "UNISEX"
-},
-{
-  "id": "200",
-  "name": "Adidas Samba",
-  "description": "Perfeito para compor looks casuais ou street, o Adidas Samba é a escolha ideal para quem busca autenticidade, conforto e estilo clássico em qualquer ocasião.",
-  "price": 500,
-  "categoryId": "tenis",
-  "images": [
-    "/images/products/tenis/adidas-samba-rosa.webp"
-  ],
-  "sizes": ["34", "35", "36", "37", "38", "39", "40"],
-  "colors": ["Rosa / Branco"],
-  "stock": 10,
-  "featured": false,
-  "isNew": true,
-  "onSale": false,
-  "gender": "FEMININO"
-}
+  {
+    "id": "83",
+    "name": "Denim Tears Cotton Wreath Short - Black/White",
+    "description": "Shorts Denim Tears Cotton Wreath em preto com detalhes brancos. Edição bicolor premium.",
+    "price": 330,
+    "categoryId": "roupas",
+    "images": ["/images/products/roupas/dt-wreath-short-blackwhite/imagem.webp"],
+    "sizes": ["P", "M", "G", "GG"],
+    "colors": ["Preto/Branco"],
+    "stock": 15,
+    "featured": false,
+    "isNew": true,
+    "onSale": false,
+    "gender": "UNISEX"
+  },
+  {
+    "id": "200",
+    "name": "Adidas Samba",
+    "description": "Perfeito para compor looks casuais ou street, o Adidas Samba é a escolha ideal para quem busca autenticidade, conforto e estilo clássico em qualquer ocasião.",
+    "price": 500,
+    "categoryId": "tenis",
+    "images": ["/images/products/tenis/adidas-samba-rosa.webp"],
+    "sizes": ["34", "35", "36", "37", "38", "39", "40"],
+    "colors": ["Rosa / Branco"],
+    "stock": 10,
+    "featured": false,
+    "isNew": true,
+    "onSale": false,
+    "gender": "FEMALE"
+  }
 ]
