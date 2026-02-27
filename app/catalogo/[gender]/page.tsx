@@ -14,6 +14,8 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
   const gender = params.gender as GenderSlug
   if (!genderMap[gender]) return notFound()
 
+  const showAcessorios = gender === 'feminino'
+
   return (
     <main className="min-h-screen bg-black pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4">
@@ -23,10 +25,10 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
           </h1>
         </div>
 
-        {/* 3 cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* Se feminino: 3 colunas. Se não: 2 colunas */}
+        <div className={`grid gap-6 ${showAcessorios ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
           {/* TÊNIS */}
-          <Link href={`/catalogo/${gender}/tenis`} className="group">
+          <Link href={`/catalogo/${gender}/tenis`} className="group block">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
                 src="/images/products/tenis/air-max-tn-sunset.webp"
@@ -35,7 +37,7 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
                 className="object-cover opacity-70 group-hover:opacity-90 transition"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
               <div className="absolute bottom-6 left-6">
                 <h2 className="text-3xl font-bold text-white">Sneakers</h2>
                 <p className="text-gray-300">Explorar tênis exclusivos</p>
@@ -44,7 +46,7 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
           </Link>
 
           {/* ROUPAS */}
-          <Link href={`/catalogo/${gender}/roupas`} className="group">
+          <Link href={`/catalogo/${gender}/roupas`} className="group block">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
                 src="/images/products/roupas/denim-jacket-washed-black/imagem.webp"
@@ -52,7 +54,7 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
                 fill
                 className="object-cover opacity-70 group-hover:opacity-90 transition"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
               <div className="absolute bottom-6 left-6">
                 <h2 className="text-3xl font-bold text-white">Streetwear</h2>
                 <p className="text-gray-300">Explorar vestuário</p>
@@ -60,24 +62,24 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
             </div>
           </Link>
 
-          {/* ✅ ACESSÓRIOS */}
-          <Link href={`/catalogo/${gender}/acessorios`} className="group">
-            <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
-              <Image
-                // Troque por uma imagem que você tenha certeza que existe.
-                // Se você não tiver /images/catalog/acessorios.webp, use uma de products como aqui.
-                src="/images/products/acessorios/vancleef-corrente.webp"
-                alt="Acessórios"
-                fill
-                className="object-cover opacity-70 group-hover:opacity-90 transition"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-              <div className="absolute bottom-6 left-6">
-                <h2 className="text-3xl font-bold text-white">Acessórios</h2>
-                <p className="text-gray-300">Explorar acessórios premium</p>
+          {/* ✅ ACESSÓRIOS (SÓ FEMININO) */}
+          {showAcessorios && (
+            <Link href={`/catalogo/${gender}/acessorios`} className="group block">
+              <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
+                <Image
+                  src="/images/products/acessorios/vancleef-corrente.webp"
+                  alt="Acessórios"
+                  fill
+                  className="object-cover opacity-70 group-hover:opacity-90 transition"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+                <div className="absolute bottom-6 left-6">
+                  <h2 className="text-3xl font-bold text-white">Acessórios</h2>
+                  <p className="text-gray-300">Explorar acessórios</p>
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          )}
         </div>
       </div>
     </main>
