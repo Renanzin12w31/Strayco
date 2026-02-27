@@ -1,6 +1,17 @@
 import { getProductsForCatalogGender } from '@/lib/data'
 import ProductCard from '@/components/product/ProductCard'
-import type { Product } from '@/lib/types'
+
+type Product = {
+  id: string
+  name: string
+  price: number
+  images?: string[]
+  featured?: boolean
+  isNew?: boolean
+  onSale?: boolean
+  categoryId: string
+  gender: 'MALE' | 'FEMALE' | 'UNISEX'
+}
 
 type Props = {
   params: {
@@ -11,7 +22,6 @@ type Props = {
 export default function TenisPage({ params }: Props) {
   const gender = (params.gender || '').toLowerCase()
 
-  // Rotas aceitas: /catalogo/masculino | /catalogo/feminino | /catalogo/unisex
   const genderKey: Product['gender'] =
     gender === 'masculino' ? 'MALE' : gender === 'feminino' ? 'FEMALE' : 'UNISEX'
 
