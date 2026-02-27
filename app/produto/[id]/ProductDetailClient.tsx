@@ -201,7 +201,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                                 <Truck className="text-orange-primary" size={24} />
                                 <div>
                                     <p className="text-white font-medium text-sm">Frete Grátis</p>
-                                    <p className="text-gray-400 text-xs">Acima de R$ 200</p>
+                                    <p className="text-gray-400 text-xs">Acima de R$ 500</p>
                                 </div>
                             </div>
                             <div className="glass rounded-lg p-4 flex items-center gap-3">
