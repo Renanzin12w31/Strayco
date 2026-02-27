@@ -23,7 +23,9 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
           </h1>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* 3 cards */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* TÊNIS */}
           <Link href={`/catalogo/${gender}/tenis`} className="group">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
@@ -41,6 +43,7 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
             </div>
           </Link>
 
+          {/* ROUPAS */}
           <Link href={`/catalogo/${gender}/roupas`} className="group">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
@@ -52,7 +55,26 @@ export default function CatalogoGeneroPage({ params }: { params: { gender: strin
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               <div className="absolute bottom-6 left-6">
                 <h2 className="text-3xl font-bold text-white">Streetwear</h2>
-                <p className="text-gray-300">Explorar vestuário e acessórios</p>
+                <p className="text-gray-300">Explorar vestuário</p>
+              </div>
+            </div>
+          </Link>
+
+          {/* ✅ ACESSÓRIOS */}
+          <Link href={`/catalogo/${gender}/acessorios`} className="group">
+            <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
+              <Image
+                // Troque por uma imagem que você tenha certeza que existe.
+                // Se você não tiver /images/catalog/acessorios.webp, use uma de products como aqui.
+                src="/images/products/acessorios/vancleef-corrente.webp"
+                alt="Acessórios"
+                fill
+                className="object-cover opacity-70 group-hover:opacity-90 transition"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute bottom-6 left-6">
+                <h2 className="text-3xl font-bold text-white">Acessórios</h2>
+                <p className="text-gray-300">Explorar acessórios premium</p>
               </div>
             </div>
           </Link>
