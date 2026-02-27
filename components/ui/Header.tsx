@@ -1,8 +1,5 @@
 'use client'
 
-// O "Header" é o cabeçalho do site (onde fica o logo e o menu).
-// Ele aparece em todas as páginas do site.
-
 import Link from 'next/link'
 import { ShoppingCart, Search, Menu, X } from 'lucide-react'
 import { useCart } from '@/lib/store'
@@ -17,7 +14,6 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const router = useRouter()
-
   const [searchQuery, setSearchQuery] = useState('')
 
   function submitSearch() {
@@ -31,9 +27,7 @@ export default function Header() {
 
   useEffect(() => {
     setIsMounted(true)
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -47,14 +41,13 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo da Marca - Clicar aqui sempre volta para a Home */}
+            {/* Logo */}
             <Link href="/" className="flex items-center space-x-2">
               <img src="/logo-stray.webp" alt="Stray Company" className="h-12 w-auto" />
             </Link>
 
-            {/* Menu de Navegação para Computador (Desktop) */}
+            {/* Desktop nav */}
             <nav className="hidden md:flex items-center space-x-8">
-              {/* Troca do "Catálogo" por Masculino e Feminino */}
               <Link
                 href="/masculino"
                 className="text-gray-300 hover:text-white transition-colors font-medium"
@@ -67,6 +60,22 @@ export default function Header() {
                 className="text-gray-300 hover:text-white transition-colors font-medium"
               >
                 Feminino
+              </Link>
+
+              <Link
+                href="/unisex"
+                className="text-gray-300 hover:text-white transition-colors font-medium"
+              >
+                Unisex
+              </Link>
+
+              {/* Se quiser manter o catálogo completo, deixa esse link.
+                  Se NÃO quiser, pode apagar. */}
+              <Link
+                href="/catalogo"
+                className="text-gray-300 hover:text-white transition-colors font-medium"
+              >
+                Catálogo
               </Link>
 
               <Link
@@ -116,7 +125,7 @@ export default function Header() {
                 )}
               </Link>
 
-              {/* Mobile Menu Button */}
+              {/* Mobile menu button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden p-2 text-gray-300 hover:text-white transition-colors"
@@ -128,7 +137,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -154,7 +163,14 @@ export default function Header() {
                   Feminino
                 </Link>
 
-                {/* Se você quiser remover "Catálogo Completo" do mobile, é só apagar daqui */}
+                <Link
+                  href="/unisex"
+                  className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Unisex
+                </Link>
+
                 <Link
                   href="/catalogo"
                   className="block py-2 text-gray-300 hover:text-white transition-colors font-semibold mt-2"
@@ -209,7 +225,7 @@ export default function Header() {
         </AnimatePresence>
       </header>
 
-      {/* Search Modal */}
+      {/* Search modal */}
       <AnimatePresence>
         {isSearchOpen && (
           <motion.div
