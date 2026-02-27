@@ -1,6 +1,5 @@
 import { getProductsForCatalogGender } from '@/lib/data'
 import ProductCard from '@/components/product/ProductCard'
-import type { Product } from '@/lib/types'
 
 type Props = {
   params: {
@@ -11,14 +10,16 @@ type Props = {
 export default function RoupasPage({ params }: Props) {
   const gender = (params.gender || '').toLowerCase()
 
-  // Seu catálogo por gênero deve aceitar: masculino | feminino | unisex
-  // Aqui a gente normaliza pro padrão do seu filtro
   const genderKey =
-    gender === 'masculino' ? 'MALE' : gender === 'feminino' ? 'FEMALE' : 'UNISEX'
+    gender === 'masculino'
+      ? 'MALE'
+      : gender === 'feminino'
+      ? 'FEMALE'
+      : 'UNISEX'
 
-  // 🔧 A correção do erro: tipar o parâmetro do filter
+  // ✅ tipagem inline (resolve o build)
   const products = getProductsForCatalogGender(genderKey).filter(
-    (p: Product) => p.categoryId === 'roupas'
+    (p: { categoryId: string }) => p.categoryId === 'roupas'
   )
 
   return (
@@ -28,6 +29,7 @@ export default function RoupasPage({ params }: Props) {
           <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
             Streetwear
           </h1>
+
           <p className="text-gray-400">
             Explore nossa coleção de roupas ({products.length} produtos)
           </p>
@@ -39,7 +41,7 @@ export default function RoupasPage({ params }: Props) {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product: Product) => (
+            {products.map((product: any) => (
               <ProductCard
                 key={product.id}
                 id={product.id}
