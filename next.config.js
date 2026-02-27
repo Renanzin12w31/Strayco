@@ -1,15 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ✅ Necessário para deploy como Static Site (Render/Netlify/GitHub Pages etc.)
-  output: 'export',
-  trailingSlash: true,
+  // ✅ Web Service: NÃO usar output: 'export'
+  // output: 'export',
 
-  // ✅ next/image não pode usar o otimizador em modo export
   images: {
-    unoptimized: true,
+    // ✅ Web Service pode usar otimização normal.
+    // Só use unoptimized se você tiver alguma restrição específica.
+    // unoptimized: true,
   },
 
-  // Build optimizations
   swcMinify: true,
   compress: true,
   productionBrowserSourceMaps: false,
