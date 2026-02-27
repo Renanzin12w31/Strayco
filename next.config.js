@@ -1,24 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // ✅ Necessário para deploy como Static Site (Render/Netlify/GitHub Pages etc.)
+  output: 'export',
+  trailingSlash: true,
 
-    // ❌ REMOVIDO: output: 'export',
-    // ❌ REMOVIDO: trailingSlash: true,
+  // ✅ next/image não pode usar o otimizador em modo export
+  images: {
+    unoptimized: true,
+  },
 
-    images: {
-        // ❌ REMOVIDO: unoptimized: true
-    },
+  // Build optimizations
+  swcMinify: true,
+  compress: true,
+  productionBrowserSourceMaps: false,
 
-    // Build optimizations
-    swcMinify: true,
-    compress: true,
-    productionBrowserSourceMaps: false,
-
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
-    typescript: {
-        ignoreBuildErrors: false,
-    },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
 }
 
 module.exports = nextConfig
