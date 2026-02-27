@@ -1,82 +1,72 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 
-const genderMap = {
-  masculino: { title: 'Masculino' },
-  feminino: { title: 'Feminino' },
-  unisex: { title: 'Unisex' },
-} as const
+// 👇 AJUSTE ESTE IMPORT para o caminho real do seu array de produtos
+// Exemplo comum: import { products } from '@/data/products'
+import { products } from '@/data/products'
 
-type GenderSlug = keyof typeof genderMap
+type Product = {
+  id: string
+  name: string
+  description: string
+  price: number
+  categoryId: string
+  images: string[]
+  gender: 'MALE' | 'FEMALE' | 'UNISEX'
+}
 
-export default function CatalogoGeneroPage({ params }: { params: { gender: string } }) {
-  const gender = params.gender as GenderSlug
-  if (!genderMap[gender]) return notFound()
+export default function AcessoriosPage({ params }: { params: { gender: string } }) {
+  const gender = params.gender
 
-  const showAccessories = gender === 'feminino'
+  // Você quer acessórios só no feminino
+  if (gender !== 'feminino') return notFound()
+
+  const items = (products as Product[]).filter(
+    (p) => p.categoryId === 'acessorios' && (p.gender === 'FEMALE' || p.gender === 'UNISEX')
+  )
 
   return (
     <main className="min-h-screen bg-black pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-            {genderMap[gender].title}
-          </h1>
+        <div className="mb-10">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Acessórios</h1>
+          <p className="text-gray-400">Colar e pulseira Van Cleef e outros acessórios</p>
         </div>
 
-        <div className={`grid gap-6 ${showAccessories ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
-          <Link href={`/catalogo/${gender}/tenis`} className="group">
-            <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
-              <Image
-                src="/images/products/tenis/air-max-tn-sunset.webp"
-                alt="Sneakers"
-                fill
-                className="object-cover opacity-70 group-hover:opacity-90 transition"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-              <div className="absolute bottom-6 left-6">
-                <h2 className="text-3xl font-bold text-white">Sneakers</h2>
-                <p className="text-gray-300">Explorar tênis exclusivos</p>
-              </div>
-            </div>
-          </Link>
-
-          <Link href={`/catalogo/${gender}/roupas`} className="group">
-            <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
-              <Image
-                src="/images/products/roupas/denim-jacket-washed-black/imagem.webp"
-                alt="Streetwear"
-                fill
-                className="object-cover opacity-70 group-hover:opacity-90 transition"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-              <div className="absolute bottom-6 left-6">
-                <h2 className="text-3xl font-bold text-white">Streetwear</h2>
-                <p className="text-gray-300">Explorar vestuário</p>
-              </div>
-            </div>
-          </Link>
-
-          {showAccessories && (
-            <Link href={`/catalogo/${gender}/acessorios`} className="group">
-              <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
-                <Image
-                  src="/images/products/acessorios/vancleef-corrente.webp"
-                  alt="Acessórios"
-                  fill
-                  className="object-cover opacity-70 group-hover:opacity-90 transition"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                <div className="absolute bottom-6 left-6">
-                  <h2 className="text-3xl font-bold text-white">Acessórios</h2>
-                  <p className="text-gray-300">Explorar acessórios</p>
+        {items.length === 0 ? (
+          <div className="text-gray-300">
+            Nenhum acessório encontrado. Verifique se os produtos têm:
+            <span className="text-white"> categoryId: "acessorios" </span>
+            e <span className="text-white"> gender: "FEMALE" ou "UNISEX"</span>.
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {items.map((p) => (
+              <Link
+                key={p.id}
+                href={`/produto/${p.id}`}
+                className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition"
+              >
+                <div className="aspect-square bg-black/40">
+                  {/* imagem simples sem next/image pra evitar dor de cabeça.
+                      se quiser, eu troco pra Image */}
+                  <img
+                    src={p.images?.[0] || '/images/placeholder.webp'}
+                    alt={p.name}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
-              </div>
-            </Link>
-          )}
-        </div>
+
+                <div className="p-3">
+                  <div className="text-white font-semibold text-sm">{p.name}</div>
+                  <div className="text-gray-400 text-xs line-clamp-2">{p.description}</div>
+                  <div className="text-white mt-2 font-bold">R$ {p.price}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   )
