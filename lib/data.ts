@@ -11,21 +11,21 @@ const EXCLUDED_PRODUCT_IDS = ['66', '69', '70', '71', '76']
 
 const productsData = (productsDataRaw as Product[]).filter(p => !EXCLUDED_PRODUCT_IDS.includes(p.id))
 
-export interface Product {
-    id: string
-    name: string
-    description: string
-    price: number
-    categoryId: string
-    images: string[]
-    sizes: string[]
-    colors: string[]
-    stock: number
-    featured: boolean
-    isNew: boolean
-    onSale: boolean
-    salePrice?: number
-    gender: 'MALE' | 'FEMALE' | 'UNISEX'
+export type Product = {
+  id: string
+  name: string
+  description: string
+  price: number
+  categoryId: string
+  images: string[]
+  sizes: string[]
+  colors: string[]
+  stock: number
+  featured: boolean
+  isNew: boolean
+  onSale: boolean
+  gender: 'MALE' | 'FEMALE' | 'UNISEX'
+  essential?: boolean
 }
 
 export interface Category {
