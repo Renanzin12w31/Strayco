@@ -1,20 +1,17 @@
 import Link from "next/link";
-import { products } from "@/data/products"; // ajuste se o caminho for diferente
-import ProductGrid from "@/components/ProductGrid"; // componente que mostra produtos
+import Image from "next/image";
+import { products } from "@/data/products"; // ajuste se necessário
 
 export default function AcessoriosPage({
   params,
 }: {
   params: { gender: string };
 }) {
-  const genderParam = params.gender.toUpperCase();
+  const genderParam = params.gender.toUpperCase(); // "FEMININO" | "MASCULINO" etc.
 
-  // filtra acessórios do gênero atual + unisex
-  const filteredProducts = products.filter((product) => {
-    const isAcessorio = product.categoryId === "acessorios";
-    const matchesGender =
-      product.gender === genderParam || product.gender === "UNISEX";
-
+  const filteredProducts = products.filter((p) => {
+    const isAcessorio = p.categoryId === "acessorios";
+    const matchesGender = p.gender === genderParam || p.gender === "UNISEX";
     return isAcessorio && matchesGender;
   });
 
@@ -32,12 +29,43 @@ export default function AcessoriosPage({
           <h1 className="text-4xl md:text-5xl font-bold text-white">
             Acessórios {params.gender}
           </h1>
-          <p className="text-gray-400">
-            Produtos acessórios disponíveis.
-          </p>
+          <p className="text-gray-400">Pulseiras, bonés, bags e mais.</p>
         </div>
 
-        <ProductGrid products={filteredProducts} />
+        {filteredProducts.length === 0 ? (
+          <div className="text-center text-gray-400">
+            Nenhum acessório encontrado.
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {filteredProducts.map((p) => (
+              <Link
+                key={p.id}
+                href={`/produto/${p.id}`}
+                className="group rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition"
+              >
+                <div className="relative aspect-square">
+                  <Image
+                    src={p.images?.[0] || "/images/placeholder.webp"}
+                    alt={p.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                </div>
+
+                <div className="p-3">
+                  <p className="text-white font-semibold leading-tight line-clamp-2">
+                    {p.name}
+                  </p>
+                  <p className="text-gray-400 text-sm mt-1">
+                    R$ {Number(p.price).toFixed(0)}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );
