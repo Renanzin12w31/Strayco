@@ -1,33 +1,30 @@
-import Link from "next/link";
-import Image from "next/image";
+import { getProductsForCatalogGender } from '@/lib/data'
+import ProductCard from '@/components/product/ProductCard'
+import Link from 'next/link'
 
-// ✅ IMPORTANTE:
-// Troque essa linha pelo MESMO import que você usa na página que lista produtos (tenis/roupas).
-// Exemplos comuns:
-// import products from "@/data/produtos"
-// import { PRODUCTS as products } from "@/lib/products"
-// import products from "@/data/products.json"
-import productsData from "@/data/products";
+type Props = {
+  params: {
+    gender: string
+  }
+}
 
-// Essa linha tenta funcionar tanto se exporta default quanto se exporta { products }
-const products = (productsData as any).products ?? productsData;
+export default function AcessoriosPage({ params }: Props) {
+  const gender = (params.gender || '').toLowerCase()
 
-export default function AcessoriosPage({
-  params,
-}: {
-  params: { gender: string };
-}) {
-  const genderParam = params.gender.toUpperCase();
+  const genderKey =
+    gender === 'masculino'
+      ? 'MALE'
+      : gender === 'feminino'
+      ? 'FEMALE'
+      : 'UNISEX'
 
-  const filtered = (products as any[]).filter((p) => {
-    const isAcessorio = p.categoryId === "acessorios";
-    const matchesGender = p.gender === genderParam || p.gender === "UNISEX";
-    return isAcessorio && matchesGender;
-  });
+  const products = getProductsForCatalogGender(genderKey).filter(
+    (p: { categoryId: string }) => p.categoryId === 'acessorios'
+  )
 
   return (
-    <main className="min-h-screen bg-black pt-24 pb-16">
-      <div className="max-w-6xl mx-auto px-4">
+    <main className="min-h-screen bg-black pt-24 pb-16 px-4">
+      <div className="max-w-7xl mx-auto">
         <Link
           href={`/catalogo/${params.gender}`}
           className="text-gray-400 hover:text-white"
@@ -35,48 +32,34 @@ export default function AcessoriosPage({
           ← Voltar
         </Link>
 
-        <div className="text-center mb-10 mt-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-white">
-            Acessórios {params.gender}
+        <div className="mb-12 mt-8">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+            Acessórios
           </h1>
-          <p className="text-gray-400">Pulseiras, bonés, bags e mais.</p>
+          <p className="text-gray-400">Explore nossa coleção ({products.length} produtos)</p>
         </div>
 
-        {filtered.length === 0 ? (
-          <div className="text-center text-gray-400">
-            Nenhum acessório encontrado.
+        {products.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-gray-400">Nenhum produto disponível</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {filtered.map((p: any) => (
-              <Link
-                key={p.id}
-                href={`/produto/${p.id}`}
-                className="group rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition"
-              >
-                <div className="relative aspect-square">
-                  <Image
-                    src={p.images?.[0] || "/images/placeholder.webp"}
-                    alt={p.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                </div>
-
-                <div className="p-3">
-                  <p className="text-white font-semibold leading-tight line-clamp-2">
-                    {p.name}
-                  </p>
-                  <p className="text-gray-400 text-sm mt-1">
-                    R$ {Number(p.price).toFixed(0)}
-                  </p>
-                </div>
-              </Link>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {products.map((product: any) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                price={product.price}
+                image={product.images?.[0] || '/logo-stray.webp'}
+                featured={product.featured}
+                isNew={product.isNew}
+                onSale={product.onSale}
+              />
             ))}
           </div>
         )}
       </div>
     </main>
-  );
+  )
 }
