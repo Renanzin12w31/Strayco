@@ -1,15 +1,25 @@
 import Link from "next/link";
 import Image from "next/image";
-import { products } from "@/data/products"; // ajuste se necessário
+
+// ✅ IMPORTANTE:
+// Troque essa linha pelo MESMO import que você usa na página que lista produtos (tenis/roupas).
+// Exemplos comuns:
+// import products from "@/data/produtos"
+// import { PRODUCTS as products } from "@/lib/products"
+// import products from "@/data/products.json"
+import productsData from "@/data/products";
+
+// Essa linha tenta funcionar tanto se exporta default quanto se exporta { products }
+const products = (productsData as any).products ?? productsData;
 
 export default function AcessoriosPage({
   params,
 }: {
   params: { gender: string };
 }) {
-  const genderParam = params.gender.toUpperCase(); // "FEMININO" | "MASCULINO" etc.
+  const genderParam = params.gender.toUpperCase();
 
-  const filteredProducts = products.filter((p) => {
+  const filtered = (products as any[]).filter((p) => {
     const isAcessorio = p.categoryId === "acessorios";
     const matchesGender = p.gender === genderParam || p.gender === "UNISEX";
     return isAcessorio && matchesGender;
@@ -32,13 +42,13 @@ export default function AcessoriosPage({
           <p className="text-gray-400">Pulseiras, bonés, bags e mais.</p>
         </div>
 
-        {filteredProducts.length === 0 ? (
+        {filtered.length === 0 ? (
           <div className="text-center text-gray-400">
             Nenhum acessório encontrado.
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {filteredProducts.map((p) => (
+            {filtered.map((p: any) => (
               <Link
                 key={p.id}
                 href={`/produto/${p.id}`}
