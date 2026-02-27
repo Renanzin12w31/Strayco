@@ -1,4 +1,5 @@
 import HeroBanner from '@/components/ui/HeroBanner'
+import TrustBar from '@/components/ui/TrustBar'
 import LazyProductCarousel from '@/components/product/LazyProductCarousel'
 
 import {
@@ -10,13 +11,11 @@ import {
 } from '@/lib/data'
 
 export default function HomePage() {
-  // grupos de produtos
   const newProducts = getNewProducts(8)
   const bestSellers = getFeaturedProducts(8)
   const essentials = getEssentialProducts(8)
   const onSale = getSaleProducts(8)
 
-  // transforma produtos para o carrossel
   const transformProducts = (products: Product[]) =>
     products.map((p) => ({
       id: p.id,
@@ -31,38 +30,23 @@ export default function HomePage() {
   return (
     <>
       <HeroBanner />
+      <TrustBar />
 
       <div className="bg-black">
-        {/* Lançamentos */}
         {newProducts.length > 0 && (
-          <LazyProductCarousel
-            title="Lançamentos"
-            products={transformProducts(newProducts)}
-          />
+          <LazyProductCarousel title="Lançamentos" products={transformProducts(newProducts)} />
         )}
 
-        {/* Mais vendidos */}
         {bestSellers.length > 0 && (
-          <LazyProductCarousel
-            title="Mais Vendidos"
-            products={transformProducts(bestSellers)}
-          />
+          <LazyProductCarousel title="Mais Vendidos" products={transformProducts(bestSellers)} />
         )}
 
-        {/* Essenciais */}
         {essentials.length > 0 && (
-          <LazyProductCarousel
-            title="Essenciais"
-            products={transformProducts(essentials)}
-          />
+          <LazyProductCarousel title="Essenciais" products={transformProducts(essentials)} />
         )}
 
-        {/* Promoções */}
         {onSale.length > 0 && (
-          <LazyProductCarousel
-            title="Promoções"
-            products={transformProducts(onSale)}
-          />
+          <LazyProductCarousel title="Promoções" products={transformProducts(onSale)} />
         )}
       </div>
     </>
