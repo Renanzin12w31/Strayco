@@ -1,40 +1,56 @@
 import { getProductsForCatalogGender } from '@/lib/data'
 import ProductCard from '@/components/product/ProductCard'
-import { notFound } from 'next/navigation'
+import type { Product } from '@/lib/types'
 
-const allowed = new Set(['masculino', 'feminino', 'unisex'])
+type Props = {
+  params: {
+    gender: string
+  }
+}
 
-export default function TenisGeneroPage({ params }: { params: { gender: string } }) {
-  if (!allowed.has(params.gender)) return notFound()
+export default function TenisPage({ params }: Props) {
+  const gender = (params.gender || '').toLowerCase()
 
-  const genderKey =
-    params.gender === 'masculino' ? 'MALE' :
-    params.gender === 'feminino' ? 'FEMALE' : 'UNISEX'
+  // Rotas aceitas: /catalogo/masculino | /catalogo/feminino | /catalogo/unisex
+  const genderKey: Product['gender'] =
+    gender === 'masculino' ? 'MALE' : gender === 'feminino' ? 'FEMALE' : 'UNISEX'
 
-  const products = getProductsForCatalogGender(genderKey).filter(p => p.categoryId === 'tenis')
+  const products = getProductsForCatalogGender(genderKey).filter(
+    (p: Product) => p.categoryId === 'tenis'
+  )
 
   return (
-    <main className="min-h-screen bg-black pt-24 pb-16">
-      <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-10">
-          Sneakers
-        </h1>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((p) => (
-            <ProductCard
-              key={p.id}
-              id={p.id}
-              name={p.name}
-              price={p.price}
-              salePrice={p.salePrice}
-              image={p.images?.[0]}
-              featured={p.featured}
-              isNew={p.isNew}
-              onSale={p.onSale}
-            />
-          ))}
+    <main className="min-h-screen bg-black pt-24 pb-16 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-12">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+            Sneakers
+          </h1>
+          <p className="text-gray-400">
+            Explore nossa coleção de tênis ({products.length} produtos)
+          </p>
         </div>
+
+        {products.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-gray-400">Nenhum produto disponível</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {products.map((product: Product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                price={product.price}
+                image={product.images?.[0]}
+                featured={product.featured}
+                isNew={product.isNew}
+                onSale={product.onSale}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </main>
   )
