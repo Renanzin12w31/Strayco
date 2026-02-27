@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Static export configuration
-    output: 'export',
-    trailingSlash: true,
+
+    // ❌ REMOVIDO: output: 'export',
+    // ❌ REMOVIDO: trailingSlash: true,
 
     images: {
-        unoptimized: true, // Required for static export
+        // ❌ REMOVIDO: unoptimized: true
     },
 
     // Build optimizations
@@ -13,7 +13,6 @@ const nextConfig = {
     compress: true,
     productionBrowserSourceMaps: false,
 
-    // Ignore linting and type errors during build (optional)
     eslint: {
         ignoreDuringBuilds: true,
     },
