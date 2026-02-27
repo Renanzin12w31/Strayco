@@ -1,5 +1,6 @@
 import { getProductsForCatalogGender } from '@/lib/data'
 import ProductCard from '@/components/product/ProductCard'
+import type { Product } from '@/lib/types'
 
 type Props = {
   params: {
@@ -8,49 +9,43 @@ type Props = {
 }
 
 export default function RoupasPage({ params }: Props) {
-  // pega o gender da rota dinâmica
-  const gender = params.gender.toLowerCase()
+  const gender = (params.gender || '').toLowerCase()
 
-  // garante valores válidos
+  // Seu catálogo por gênero deve aceitar: masculino | feminino | unisex
+  // Aqui a gente normaliza pro padrão do seu filtro
   const genderKey =
-    gender === 'masculino'
-      ? 'masculino'
-      : gender === 'feminino'
-      ? 'feminino'
-      : 'unisex'
+    gender === 'masculino' ? 'MALE' : gender === 'feminino' ? 'FEMALE' : 'UNISEX'
 
-  // pega produtos do gênero e filtra roupas
-  const clothes = getProductsForCatalogGender(genderKey).filter(
-    (p) => p.categoryId === 'roupas'
+  // 🔧 A correção do erro: tipar o parâmetro do filter
+  const products = getProductsForCatalogGender(genderKey).filter(
+    (p: Product) => p.categoryId === 'roupas'
   )
 
   return (
-    <div className="min-h-screen px-4 py-24">
+    <main className="min-h-screen bg-black pt-24 pb-16 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4 capitalize">
-            {genderKey}
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+            Streetwear
           </h1>
-
           <p className="text-gray-400">
-            Explore nossa coleção streetwear ({clothes.length} produtos)
+            Explore nossa coleção de roupas ({products.length} produtos)
           </p>
         </div>
 
-        {clothes.length === 0 ? (
+        {products.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-gray-400">Nenhum produto disponível</p>
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {clothes.map((product) => (
+            {products.map((product: Product) => (
               <ProductCard
                 key={product.id}
                 id={product.id}
                 name={product.name}
                 price={product.price}
-                salePrice={product.salePrice || undefined}
-                image={product.images[0]}
+                image={product.images?.[0]}
                 featured={product.featured}
                 isNew={product.isNew}
                 onSale={product.onSale}
@@ -59,6 +54,6 @@ export default function RoupasPage({ params }: Props) {
           </div>
         )}
       </div>
-    </div>
+    </main>
   )
 }
