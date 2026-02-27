@@ -69,7 +69,8 @@ export default function HeroBanner() {
           </Link>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator (comentado) */}
+        {/*
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -84,6 +85,7 @@ export default function HeroBanner() {
             <div className="w-1 h-2 bg-gray-600 rounded-full" />
           </motion.div>
         </motion.div>
+        */}
       </motion.div>
 
       {/* Gradient Overlay */}
