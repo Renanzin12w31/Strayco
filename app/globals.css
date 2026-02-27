@@ -144,3 +144,12 @@ body {
   -webkit-backdrop-filter: blur(12px);
   background: rgba(0, 0, 0, 0.8);
 }
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
