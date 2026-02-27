@@ -147,3 +147,8 @@ export function getCategoryById(id: string): Category | undefined {
 export function getCategoryBySlug(slug: string): Category | undefined {
     return categoriesData.find((c) => c.slug === slug) as Category | undefined
 }
+export function getProductsForCatalogGender(gender: 'MALE' | 'FEMALE' | 'UNISEX') {
+  if (gender === 'MALE') return products.filter(p => p.gender === 'MALE' || p.gender === 'UNISEX')
+  if (gender === 'FEMALE') return products.filter(p => p.gender === 'FEMALE' || p.gender === 'UNISEX')
+  return products.filter(p => p.gender === 'UNISEX')
+}
