@@ -8,7 +8,6 @@ interface Product {
     id: string
     name: string
     price: number
-    salePrice?: number
     image: string
     featured?: boolean
     isNew?: boolean

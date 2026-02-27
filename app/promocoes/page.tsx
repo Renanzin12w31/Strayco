@@ -28,7 +28,6 @@ export default function PromocoesPage() {
                                 id={product.id}
                                 name={product.name}
                                 price={product.price}
-                                salePrice={product.salePrice || undefined}
                                 image={product.images[0]}
                                 featured={product.featured}
                                 isNew={product.isNew}

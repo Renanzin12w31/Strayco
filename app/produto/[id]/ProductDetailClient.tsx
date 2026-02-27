@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ShoppingCart, Heart, Truck, Shield, ArrowLeft } from 'lucide-react'
+import { ShoppingCart, Truck, Shield, ArrowLeft } from 'lucide-react'
 import { useCart } from '@/lib/store'
 import { formatPrice } from '@/lib/utils'
 import ProductCarousel from '@/components/product/ProductCarousel'
@@ -32,7 +32,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
         addItem({
             productId: product.id,
             name: product.name,
-            price: product.onSale && product.salePrice ? product.salePrice : product.price,
+            price: product.price,
             image: product.images[0],
             size: selectedSize,
             color: selectedColor,
@@ -43,7 +43,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
         setTimeout(() => setAddedToCart(false), 2000)
     }
 
-    const displayPrice = product.onSale && product.salePrice ? product.salePrice : product.price
+    const displayPrice = product.price
 
     return (
         <div className="min-h-screen px-4 py-24">
@@ -119,20 +119,9 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                         </h1>
 
                         <div className="flex items-center gap-3 mb-6">
-                            {product.onSale && product.salePrice ? (
-                                <>
-                                    <span className="text-3xl font-bold text-orange-primary">
-                                        {formatPrice(product.salePrice)}
-                                    </span>
-                                    <span className="text-xl text-gray-500 line-through">
-                                        {formatPrice(product.price)}
-                                    </span>
-                                </>
-                            ) : (
-                                <span className="text-3xl font-bold text-orange-primary">
-                                    {formatPrice(product.price)}
-                                </span>
-                            )}
+                            <span className="text-3xl font-bold text-orange-primary">
+                                {formatPrice(displayPrice)}
+                            </span>
                         </div>
 
                         <p className="text-gray-300 mb-8 leading-relaxed">
@@ -235,7 +224,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                                 id: p.id,
                                 name: p.name,
                                 price: p.price,
-                                salePrice: p.salePrice,
                                 image: p.images[0],
                                 featured: p.featured,
                                 isNew: p.isNew,
