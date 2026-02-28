@@ -55,22 +55,27 @@ export default function CatalogoGeneroPage({
                   Velocidade criada para decidir.
                 </p>
 
-                <div className="flex flex-wrap gap-3 mt-6">
-                  {/* TROQUE o href se o JA3 não for /produto/14 */}
-                  <Link
-                    href="/produto/14"
-                    className="px-6 py-3 rounded-xl bg-yellow-400 text-black font-semibold hover:bg-yellow-300 transition"
-                  >
-                    Comprar Ja 3
-                  </Link>
-
-                  <Link
-                    href="/catalogo/masculino/tenis"
-                    className="px-6 py-3 rounded-xl border border-white/20 text-white hover:bg-white/10 transition"
-                  >
-                    Ver Tênis
-                  </Link>
-                </div>
+               <div className="mt-8">
+  <Link
+    href="/produto/14"
+    className="
+      inline-flex items-center gap-2
+      px-6 py-3
+      rounded-full
+      border border-white/20
+      text-white
+      backdrop-blur-sm
+      bg-white/5
+      hover:bg-white/10
+      transition-all duration-300
+    "
+  >
+    Comprar
+    <span className="translate-x-0 group-hover:translate-x-1 transition">
+      →
+    </span>
+  </Link>
+</div>
               </div>
             </div>
           </section>
