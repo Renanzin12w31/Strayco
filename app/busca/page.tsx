@@ -1,71 +1,87 @@
-"use client"
+'use client'
 
-import { Suspense, useMemo } from "react"
-import { useSearchParams } from "next/navigation"
-import { searchProducts } from "@/lib/data"
-import ProductCard from "@/components/product/ProductCard"
+import { useMemo, useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { products } from '@/data/products'
 
-function BuscaContent() {
-  const searchParams = useSearchParams()
-  const query = (searchParams.get("q") ?? "").trim()
-
-  const results = useMemo(() => {
-    return query ? searchProducts(query) : []
-  }, [query])
-
-  return (
-    <div className="min-h-screen px-6 py-24">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold text-white">
-            Resultados da busca
-          </h1>
-
-          {query ? (
-            <p className="text-gray-400 mt-2">
-              Buscando por:{" "}
-              <span className="text-white font-semibold">{query}</span> —{" "}
-              {results.length} resultado(s)
-            </p>
-          ) : (
-            <p className="text-gray-400 mt-2">
-              Digite algo para buscar.
-            </p>
-          )}
-        </div>
-
-        {query && results.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-gray-400">
-              Nenhum produto encontrado.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {results.map((product) => (
-              <ProductCard
-  key={product.id}
-  id={product.id}
-  name={product.name}
-  price={product.price}
-  image={product.images?.[0]}
-  featured={product.featured}
-  isNew={product.isNew}
-  onSale={product.onSale}
-/>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  )
+function normalize(str: string) {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
 }
 
 export default function BuscaPage() {
+  const [q, setQ] = useState('')
+
+  const results = useMemo(() => {
+    const term = normalize(q.trim())
+    if (!term) return []
+
+    return products.filter((p) => {
+      const hay = normalize(
+        `${p.name} ${p.description ?? ''} ${(p.colors ?? []).join(' ')} ${(p.sizes ?? []).join(' ')}`
+      )
+      return hay.includes(term)
+    })
+  }, [q])
+
   return (
-    <Suspense fallback={<div className="min-h-screen bg-black" />}>
-      <BuscaContent />
-    </Suspense>
+    <main className="min-h-screen bg-black text-white pt-24 pb-16">
+      <div className="max-w-6xl mx-auto px-4">
+        <h1 className="text-4xl md:text-5xl font-bold mb-3">Busca</h1>
+        <p className="text-gray-400 mb-8">Pesquise por nome, cor, tamanho ou marca.</p>
+
+        {/* INPUT */}
+        <div className="mb-10">
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Digite para buscar…"
+            className="w-full max-w-xl bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-gray-500 outline-none focus:border-white/30"
+          />
+        </div>
+
+        {/* ESTADO VAZIO */}
+        {!q.trim() ? (
+          <p className="text-gray-400">Digite algo para buscar.</p>
+        ) : results.length === 0 ? (
+          <p className="text-gray-400">Nenhum produto encontrado.</p>
+        ) : (
+          <>
+            <p className="text-gray-400 mb-6">
+              Encontramos <span className="text-white">{results.length}</span> resultado(s).
+            </p>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {results.map((p) => (
+                <Link
+                  key={p.id}
+                  href={`/produto/${p.id}`}
+                  className="group rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition overflow-hidden"
+                >
+                  <div className="relative h-56 bg-black">
+                    <Image
+                      src={p.images?.[0] ?? '/placeholder.webp'}
+                      alt={p.name}
+                      fill
+                      className="object-cover group-hover:scale-[1.02] transition"
+                    />
+                  </div>
+
+                  <div className="p-4">
+                    <div className="font-semibold">{p.name}</div>
+                    <div className="text-gray-400 text-sm mt-1">
+                      R$ {Number(p.price).toFixed(0)}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </main>
   )
 }
-
