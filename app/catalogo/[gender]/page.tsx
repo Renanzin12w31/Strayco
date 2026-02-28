@@ -35,38 +35,61 @@ function Banner({
   href,
   src,
   alt,
-  fit = 'cover',
-  ctaPosition = 'left',
+  variant = 'tenis', // 'tenis' (JA3) ou 'roupas' (SYNA)
 }: {
   href: string
   src: string
   alt: string
-  fit?: 'cover' | 'contain'
-  ctaPosition?: 'left' | 'center'
+  variant?: 'tenis' | 'roupas'
 }) {
+  const isTenis = variant === 'tenis'
+
   return (
     <Link
       href={href}
       className="block relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 group"
     >
-      <div className="relative w-full h-[340px] sm:h-[420px] md:h-[520px]">
+      {/* ✅ alturas diferentes por tipo (corrige mobile e desktop) */}
+      <div
+        className={`relative w-full ${
+          isTenis
+            ? 'h-[240px] sm:h-[300px] md:h-[360px] lg:h-[420px]'
+            : 'h-[320px] sm:h-[380px] md:h-[480px] lg:h-[560px]'
+        }`}
+      >
+        {/* ✅ imagem */}
         <Image
           src={src}
           alt={alt}
           fill
           priority
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 900px, 960px"
-          className={`${fit === 'contain' ? 'object-contain' : 'object-cover'} object-center`}
+          className={
+            isTenis
+              ? // JA3: cover, mas com foco melhor no mobile (evita cortar texto e tênis)
+                'object-cover object-[70%_center] md:object-center'
+              : // SYNA: contain pra não cortar + central
+                'object-contain object-center'
+          }
         />
 
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.10),transparent_55%)] pointer-events-none" />
+        {/* ✅ tratamento visual (sem “pesar”) */}
         <div className="absolute inset-0 bg-black/15 group-hover:bg-black/10 transition" />
 
+        {/* ✅ No SYNA: cria um “palco” central pra produto não ficar recortado/miúdo */}
+        {!isTenis && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            {/* halo suave */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.10),transparent_55%)]" />
+            {/* “segura” o produto no centro e evita sensação de recorte */}
+            <div className="w-full max-w-[520px] h-full" />
+          </div>
+        )}
+
+        {/* ✅ CTA único */}
         <div
           className={`absolute bottom-6 md:bottom-10 ${
-            ctaPosition === 'center'
-              ? 'left-1/2 -translate-x-1/2'
-              : 'left-6 md:left-10'
+            isTenis ? 'left-6 md:left-10' : 'left-1/2 -translate-x-1/2'
           }`}
         >
           <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-white backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-300">
@@ -98,7 +121,6 @@ export default function CatalogoGeneroPage({
 
         <SubNav gender={gender} />
 
-        {/* ✅ Dois banners SEM texto extra */}
         <div className="grid gap-8">
           <Banner
             href={`/catalogo/${gender}/tenis`}
@@ -108,16 +130,14 @@ export default function CatalogoGeneroPage({
                 : '/images/products/tenis/air-max-tn-sunset.webp'
             }
             alt="Banner Tênis"
-            fit="cover"
-            ctaPosition="left"
+            variant="tenis"
           />
 
           <Banner
             href={`/catalogo/${gender}/roupas`}
             src="/images/products/roupas/SYNA-WORLD-MINIMAL.webp"
             alt="Banner Roupas"
-            fit="contain"
-            ctaPosition="center"
+            variant="roupas"
           />
         </div>
       </div>
