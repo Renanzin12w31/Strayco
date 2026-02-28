@@ -10,23 +10,78 @@ const genderMap = {
 
 type GenderSlug = keyof typeof genderMap
 
-export default function CatalogoGeneroPage({ params }: { params: { gender: string } }) {
+export default function CatalogoGeneroPage({
+  params,
+}: {
+  params: { gender: string }
+}) {
   const gender = params.gender as GenderSlug
   if (!genderMap[gender]) return notFound()
 
   const showAcessorios = gender === 'feminino'
+  const showJa3Hero = gender === 'masculino'
 
   return (
     <main className="min-h-screen bg-black pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
             {genderMap[gender].title}
           </h1>
         </div>
 
+        {/* HERO JA3 (SÓ NO MASCULINO) */}
+        {showJa3Hero && (
+          <section className="relative mb-10 overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+            <div className="relative h-[320px] md:h-[420px]">
+              <Image
+                src="/images/products/tenis/JA3-WEB.webp"
+                alt="Nike Ja 3"
+                fill
+                priority
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-black/45" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+            </div>
+
+            <div className="absolute inset-0 flex items-center">
+              <div className="px-8 md:px-14 max-w-xl">
+                <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                  CONTROLE <br /> O RITMO.
+                </h2>
+
+                <p className="text-gray-200 mt-3 text-base md:text-lg">
+                  Velocidade criada para decidir.
+                </p>
+
+                <div className="flex flex-wrap gap-3 mt-6">
+                  {/* TROQUE o href se o JA3 não for /produto/14 */}
+                  <Link
+                    href="/produto/14"
+                    className="px-6 py-3 rounded-xl bg-yellow-400 text-black font-semibold hover:bg-yellow-300 transition"
+                  >
+                    Comprar Ja 3
+                  </Link>
+
+                  <Link
+                    href="/catalogo/masculino/tenis"
+                    className="px-6 py-3 rounded-xl border border-white/20 text-white hover:bg-white/10 transition"
+                  >
+                    Ver Tênis
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Se feminino: 3 colunas. Se não: 2 colunas */}
-        <div className={`grid gap-6 ${showAcessorios ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
+        <div
+          className={`grid gap-6 ${
+            showAcessorios ? 'md:grid-cols-3' : 'md:grid-cols-2'
+          }`}
+        >
           {/* TÊNIS */}
           <Link href={`/catalogo/${gender}/tenis`} className="group block">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
