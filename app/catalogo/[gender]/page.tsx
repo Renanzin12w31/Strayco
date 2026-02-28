@@ -61,14 +61,18 @@ function Banner({
 
         {isTenis ? (
           // ✅ JA3: cover com foco bom no mobile
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[70%_center] md:object-center"
-          />
+         <Image
+  src={src}
+  alt={alt}
+  fill
+  priority
+  sizes="100vw"
+  className={
+    variant === 'roupas'
+      ? 'object-contain object-[75%_center] md:object-[80%_center] scale-105 md:scale-110'
+      : 'object-cover object-center'
+  }
+/>
         ) : (
           // ✅ ROUPAS: "moldura" (respiro) pra não encostar/cortar e manter o produto grande
           <div className="absolute inset-0 p-5 sm:p-8 md:p-12">
