@@ -49,10 +49,24 @@ export default function Header() {
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center space-x-8">
               <Link
-                href="/catalogo"
+                href="/tenis"
                 className="text-gray-300 hover:text-white transition-colors font-medium"
               >
-                Catálogo
+                Tênis
+              </Link>
+
+              <Link
+                href="/roupas"
+                className="text-gray-300 hover:text-white transition-colors font-medium"
+              >
+                Roupas
+              </Link>
+
+              <Link
+                href="/acessorios"
+                className="text-gray-300 hover:text-white transition-colors font-medium"
+              >
+                Acessórios
               </Link>
 
               <Link
@@ -125,11 +139,27 @@ export default function Header() {
             >
               <nav className="px-4 py-4 space-y-2">
                 <Link
-                  href="/catalogo"
+                  href="/tenis"
                   className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Catálogo
+                  Tênis
+                </Link>
+
+                <Link
+                  href="/roupas"
+                  className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Roupas
+                </Link>
+
+                <Link
+                  href="/acessorios"
+                  className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Acessórios
                 </Link>
 
                 <Link

@@ -56,10 +56,10 @@ export default function HeroBanner() {
           className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <Link
-            href="/catalogo"
+            href="/tenis"
             className="w-full sm:w-auto rounded-xl bg-orange-primary px-6 py-3 text-black font-semibold hover:opacity-90 transition"
           >
-            Ver Catálogo
+            Ver Tênis
           </Link>
           <Link
             href="/promocoes"
