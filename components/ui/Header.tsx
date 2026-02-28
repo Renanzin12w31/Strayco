@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useCart } from '@/lib/store'
 
 function Chevron({ open }: { open: boolean }) {
   return (
@@ -134,10 +135,26 @@ function IconCart() {
   )
 }
 
+function CartBadge({ count }: { count: number }) {
+  if (count <= 0) return null
+  const label = count > 99 ? '99+' : String(count)
+
+  return (
+    <span className="absolute -top-2 -right-2 h-5 min-w-5 px-1 rounded-full bg-yellow-400 text-white text-xs font-bold flex items-center justify-center">
+      {label}
+    </span>
+  )
+}
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openTenis, setOpenTenis] = useState(false)
   const [openRoupas, setOpenRoupas] = useState(false)
+
+  // soma a quantidade total (quantity) e re-renderiza automaticamente
+  const cartCount = useCart((s) =>
+    s.items.reduce((total, item) => total + item.quantity, 0)
+  )
 
   const closeMobile = () => {
     setMobileOpen(false)
@@ -188,11 +205,17 @@ export default function Header() {
             Promoções
           </Link>
 
-          <Link href="/trocas-e-devolucoes" className="hover:text-gray-300 transition">
+          <Link
+            href="/trocas-e-devolucoes"
+            className="hover:text-gray-300 transition"
+          >
             Trocas e Devoluções
           </Link>
 
-          <Link href="/duvidas-frequentes" className="hover:text-gray-300 transition">
+          <Link
+            href="/duvidas-frequentes"
+            className="hover:text-gray-300 transition"
+          >
             Dúvidas Frequentes
           </Link>
         </nav>
@@ -209,10 +232,11 @@ export default function Header() {
 
           <Link
             href="/carrinho"
-            className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition"
+            className="relative p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition"
             aria-label="Carrinho"
           >
             <IconCart />
+            <CartBadge count={cartCount} />
           </Link>
         </div>
 
@@ -245,9 +269,10 @@ export default function Header() {
               <Link
                 href="/carrinho"
                 onClick={closeMobile}
-                className="flex-1 p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition text-white flex items-center justify-center gap-2"
+                className="relative flex-1 p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition text-white flex items-center justify-center gap-2"
               >
                 <IconCart /> Carrinho
+                <CartBadge count={cartCount} />
               </Link>
             </div>
 
@@ -275,19 +300,35 @@ export default function Header() {
               ]}
             />
 
-            <Link href="/acessorios" onClick={closeMobile} className="text-white hover:text-gray-300 transition">
+            <Link
+              href="/acessorios"
+              onClick={closeMobile}
+              className="text-white hover:text-gray-300 transition"
+            >
               Acessórios
             </Link>
 
-            <Link href="/promocoes" onClick={closeMobile} className="text-white hover:text-gray-300 transition">
+            <Link
+              href="/promocoes"
+              onClick={closeMobile}
+              className="text-white hover:text-gray-300 transition"
+            >
               Promoções
             </Link>
 
-            <Link href="/trocas-e-devolucoes" onClick={closeMobile} className="text-white hover:text-gray-300 transition">
+            <Link
+              href="/trocas-e-devolucoes"
+              onClick={closeMobile}
+              className="text-white hover:text-gray-300 transition"
+            >
               Trocas e Devoluções
             </Link>
 
-            <Link href="/duvidas-frequentes" onClick={closeMobile} className="text-white hover:text-gray-300 transition">
+            <Link
+              href="/duvidas-frequentes"
+              onClick={closeMobile}
+              className="text-white hover:text-gray-300 transition"
+            >
               Dúvidas Frequentes
             </Link>
           </div>
