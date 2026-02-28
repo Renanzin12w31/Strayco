@@ -33,20 +33,22 @@ export default function CatalogoGeneroPage({
         {/* HERO JA3 (SÓ NO MASCULINO) */}
         {showJa3Hero && (
           <section className="relative mb-10 overflow-hidden rounded-3xl border border-white/10 bg-white/5 group">
-            <div className="relative h-[320px] md:h-[420px]">
+            {/* ✅ altura responsiva (mobile-first) */}
+            <div className="relative w-full h-[220px] sm:h-[280px] md:h-[420px]">
               <Image
                 src="/images/products/tenis/JA3-WEB.webp"
                 alt="Nike Ja 3"
                 fill
                 priority
-                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
+                className="object-cover object-center"
               />
 
               {/* overlay leve (pra manter leitura do botão) */}
               <div className="absolute inset-0 bg-black/20" />
 
               {/* CTA discreto */}
-              <div className="absolute left-8 bottom-8 md:left-12 md:bottom-12">
+              <div className="absolute left-5 bottom-5 sm:left-8 sm:bottom-8 md:left-12 md:bottom-12">
                 <Link
                   href="/produto/14"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-white backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-300"
