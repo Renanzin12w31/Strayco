@@ -25,8 +25,13 @@ function DesktopDropdown({
   href: string
   items: { label: string; href: string }[]
 }) {
+  const [open, setOpen] = useState(false)
+
   return (
-    <div className="relative group">
+    <div
+      className="relative"
+      onMouseLeave={() => setOpen(false)}
+    >
       <div className="flex items-center gap-2">
         <Link href={href} className="hover:text-gray-300 transition">
           {label}
@@ -34,20 +39,29 @@ function DesktopDropdown({
 
         <button
           type="button"
+          onClick={() => setOpen((v) => !v)}
           className="text-white/80 hover:text-white transition"
+          aria-expanded={open}
           aria-label={`Abrir opções de ${label}`}
         >
-          <Chevron open={false} />
+          <Chevron open={open} />
         </button>
       </div>
 
-      <div className="absolute left-0 top-full pt-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition">
+      <div
+        className={`absolute left-0 top-full pt-3 transition ${
+          open
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
+      >
         <div className="w-44 rounded-xl border border-white/10 bg-black/95 backdrop-blur shadow-lg overflow-hidden">
           {items.map((it) => (
             <Link
               key={it.href}
               href={it.href}
               className="block px-4 py-3 text-sm text-white hover:bg-white/10 transition"
+              onClick={() => setOpen(false)}
             >
               {it.label}
             </Link>
