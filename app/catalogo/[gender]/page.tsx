@@ -49,7 +49,7 @@ function Banner({
       href={href}
       className="block relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 group"
     >
-      {/* ✅ alturas diferentes por tipo (corrige mobile e desktop) */}
+      {/* alturas diferentes */}
       <div
         className={`relative w-full ${
           isTenis
@@ -57,44 +57,50 @@ function Banner({
             : 'h-[320px] sm:h-[380px] md:h-[480px] lg:h-[560px]'
         }`}
       >
-        {/* ✅ imagem */}
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 900px, 960px"
-          className={
-            isTenis
-              ? // JA3: cover, mas com foco melhor no mobile (evita cortar texto e tênis)
-                'object-cover object-[70%_center] md:object-center'
-              : // SYNA: contain pra não cortar + central
-                'object-contain object-center'
-          }
-        />
+        {/* ========= IMAGEM ========= */}
 
-        {/* ✅ tratamento visual (sem “pesar”) */}
-        <div className="absolute inset-0 bg-black/15 group-hover:bg-black/10 transition" />
-
-        {/* ✅ No SYNA: cria um “palco” central pra produto não ficar recortado/miúdo */}
-        {!isTenis && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            {/* halo suave */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.10),transparent_55%)]" />
-            {/* “segura” o produto no centro e evita sensação de recorte */}
-            <div className="w-full max-w-[520px] h-full" />
+        {isTenis ? (
+          // ✅ JA3 (continua perfeito)
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[70%_center] md:object-center"
+          />
+        ) : (
+          // ✅ SYNA — NÃO RECORTA MAIS
+          <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-10 md:p-14">
+            <div className="relative w-full h-full max-w-[520px]">
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                priority
+                sizes="100vw"
+                className="object-contain object-[50%_60%] md:object-center"
+              />
+            </div>
           </div>
         )}
 
-        {/* ✅ CTA único */}
+        {/* overlay leve */}
+        <div className="absolute inset-0 bg-black/15 group-hover:bg-black/10 transition" />
+
+        {/* halo suave só roupas */}
+        {!isTenis && (
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.10),transparent_60%)] pointer-events-none" />
+        )}
+
+        {/* CTA */}
         <div
           className={`absolute bottom-6 md:bottom-10 ${
             isTenis ? 'left-6 md:left-10' : 'left-1/2 -translate-x-1/2'
           }`}
         >
           <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-white backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-300">
-            Explorar
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
+            Explorar →
           </span>
         </div>
       </div>
