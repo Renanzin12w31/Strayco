@@ -30,6 +30,7 @@ function DesktopDropdown({
   return (
     <div
       className="relative"
+      onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
       <div className="flex items-center gap-2">
@@ -49,10 +50,10 @@ function DesktopDropdown({
       </div>
 
       <div
-        className={`absolute left-0 top-full pt-3 transition ${
+        className={`absolute left-0 top-full pt-3 z-50 transform-gpu transition-all duration-200 ease-out ${
           open
-            ? 'opacity-100 pointer-events-auto'
-            : 'opacity-0 pointer-events-none'
+            ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+            : 'opacity-0 -translate-y-1 scale-95 pointer-events-none'
         }`}
       >
         <div className="w-44 rounded-xl border border-white/10 bg-black/95 backdrop-blur shadow-lg overflow-hidden">
@@ -176,7 +177,7 @@ export default function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur border-b border-white/10 overflow-hidden">
+    <header className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 h-16 grid grid-cols-[auto_1fr_auto] items-center gap-4">
         {/* ESQUERDA: LOGO */}
         <Link href="/" className="flex items-center min-w-0">
