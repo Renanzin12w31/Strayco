@@ -48,20 +48,29 @@ function Banner({
             : 'h-[320px] sm:h-[380px] md:h-[480px] lg:h-[560px]'
         }`}
       >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 900px, 960px"
-          className={
-            isTenis
-              ? // JA3: cover com foco melhor no mobile
-                'object-cover object-[70%_center] md:object-center'
-              : // SYNA: contain pra não cortar
-                'object-contain object-center'
-          }
-        />
+        {isTenis ? (
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[70%_center] md:object-center"
+          />
+        ) : (
+          <div className="absolute inset-0 p-5 sm:p-8 md:p-12">
+            <div className="relative w-full h-full">
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                priority
+                sizes="100vw"
+                className="object-contain object-center"
+              />
+            </div>
+          </div>
+        )}
 
         {/* overlays leves */}
         {!isTenis && (
@@ -110,7 +119,7 @@ export default function MasculinoPage() {
 
           <Banner
             href={`/catalogo/${gender}/roupas`}
-            src="/images/products/roupas/SYNA-WORLD-MINIMAL.webp"
+            src="/images/products/roupas/SYNA-WORLD-PRODUCT.webp"
             alt="Banner Roupas"
             variant="roupas"
           />
