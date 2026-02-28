@@ -60,7 +60,7 @@ function Banner({
         {/* ========= IMAGEM ========= */}
 
         {isTenis ? (
-          // ✅ JA3 (continua perfeito)
+          // ✅ JA3: cover com foco bom no mobile
           <Image
             src={src}
             alt={alt}
@@ -70,16 +70,16 @@ function Banner({
             className="object-cover object-[70%_center] md:object-center"
           />
         ) : (
-          // ✅ SYNA — NÃO RECORTA MAIS
-          <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-10 md:p-14">
-            <div className="relative w-full h-full max-w-[520px]">
+          // ✅ ROUPAS: "moldura" (respiro) pra não encostar/cortar e manter o produto grande
+          <div className="absolute inset-0 p-5 sm:p-8 md:p-12">
+            <div className="relative w-full h-full">
               <Image
                 src={src}
                 alt={alt}
                 fill
                 priority
                 sizes="100vw"
-                className="object-contain object-[50%_60%] md:object-center"
+                className="object-contain object-center"
               />
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function CatalogoGeneroPage({
 
           <Banner
             href={`/catalogo/${gender}/roupas`}
-            src="/images/products/roupas/SYNA-WORLD-MINIMAL.webp"
+            src="/images/products/roupas/SYNA-WORLD-PRODUCT.webp"
             alt="Banner Roupas"
             variant="roupas"
           />
