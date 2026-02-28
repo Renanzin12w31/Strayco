@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 
 function Chevron({ open }: { open: boolean }) {
@@ -117,9 +118,16 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        {/* LOGO */}
-        <Link href="/" className="text-white font-bold text-xl">
-          STRAYCO
+        {/* LOGO (imagem) */}
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/images/logo-stray.webp" // <-- troque aqui se o arquivo tiver outro nome/caminho
+            alt="Strayco"
+            width={140}
+            height={40}
+            priority
+            className="object-contain"
+          />
         </Link>
 
         {/* MENU DESKTOP */}
