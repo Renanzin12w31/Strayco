@@ -1,242 +1,220 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingCart, Search, Menu, X } from 'lucide-react'
-import { useCart } from '@/lib/store'
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <span
+      className={`inline-block transition-transform ${open ? 'rotate-180' : ''}`}
+      aria-hidden="true"
+    >
+      ▾
+    </span>
+  )
+}
+
+function DesktopDropdown({
+  label,
+  href,
+  items,
+}: {
+  label: string
+  href: string
+  items: { label: string; href: string }[]
+}) {
+  return (
+    <div className="relative group">
+      <div className="flex items-center gap-2">
+        {/* clicar no texto vai para a página com cards */}
+        <Link href={href} className="hover:text-gray-300 transition">
+          {label}
+        </Link>
+
+        {/* setinha abre no hover (desktop) */}
+        <button
+          type="button"
+          className="text-white/80 hover:text-white transition"
+          aria-label={`Abrir opções de ${label}`}
+        >
+          <Chevron open={false} />
+        </button>
+      </div>
+
+      {/* menu */}
+      <div className="absolute left-0 top-full pt-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition">
+        <div className="w-44 rounded-xl border border-white/10 bg-black/95 backdrop-blur shadow-lg overflow-hidden">
+          {items.map((it) => (
+            <Link
+              key={it.href}
+              href={it.href}
+              className="block px-4 py-3 text-sm text-white hover:bg-white/10 transition"
+            >
+              {it.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MobileDropdown({
+  label,
+  href,
+  items,
+  open,
+  onToggle,
+}: {
+  label: string
+  href: string
+  items: { label: string; href: string }[]
+  open: boolean
+  onToggle: () => void
+}) {
+  return (
+    <div className="w-full">
+      <div className="flex items-center justify-between w-full">
+        {/* clicar no texto vai para a página com cards */}
+        <Link href={href} className="text-white hover:text-gray-300 transition">
+          {label}
+        </Link>
+
+        {/* clicar na setinha abre/fecha */}
+        <button
+          type="button"
+          onClick={onToggle}
+          className="px-3 py-2 text-white/80 hover:text-white transition"
+          aria-expanded={open}
+          aria-label={`Abrir opções de ${label}`}
+        >
+          <Chevron open={open} />
+        </button>
+      </div>
+
+      {open && (
+        <div className="mt-2 ml-2 rounded-xl border border-white/10 bg-white/5 overflow-hidden">
+          {items.map((it) => (
+            <Link
+              key={it.href}
+              href={it.href}
+              className="block px-4 py-3 text-sm text-white hover:bg-white/10 transition"
+            >
+              {it.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default function Header() {
-  const totalItems = useCart((state) => state.getTotalItems())
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
-  const router = useRouter()
-  const [searchQuery, setSearchQuery] = useState('')
-
-  function submitSearch() {
-    const q = searchQuery.trim()
-    if (!q) return
-
-    setIsSearchOpen(false)
-    setSearchQuery('')
-    router.push(`/busca?q=${encodeURIComponent(q)}`)
-  }
-
-  useEffect(() => {
-    setIsMounted(true)
-    const handleScroll = () => setIsScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [openTenis, setOpenTenis] = useState(false)
+  const [openRoupas, setOpenRoupas] = useState(false)
 
   return (
-    <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'header-blur shadow-lg' : 'bg-transparent'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2">
-              <img src="/logo-stray.webp" alt="Stray Company" className="h-12 w-auto" />
+    <header className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        {/* LOGO */}
+        <Link href="/" className="text-white font-bold text-xl">
+          STRAYCO
+        </Link>
+
+        {/* MENU DESKTOP */}
+        <nav className="hidden md:flex items-center gap-8 text-sm text-white">
+          <DesktopDropdown
+            label="Tênis"
+            href="/tenis"
+            items={[
+              { label: 'Masculino', href: '/tenis/masculino' },
+              { label: 'Feminino', href: '/tenis/feminino' },
+            ]}
+          />
+
+          <DesktopDropdown
+            label="Roupas"
+            href="/roupas"
+            items={[
+              { label: 'Masculino', href: '/roupas/masculino' },
+              { label: 'Feminino', href: '/roupas/feminino' },
+            ]}
+          />
+
+          <Link href="/acessorios" className="hover:text-gray-300 transition">
+            Acessórios
+          </Link>
+
+          <Link href="/promocoes" className="hover:text-gray-300 transition">
+            Promoções
+          </Link>
+
+          <Link href="/trocas-e-devolucoes" className="hover:text-gray-300 transition">
+            Trocas e Devoluções
+          </Link>
+
+          <Link href="/duvidas-frequentes" className="hover:text-gray-300 transition">
+            Dúvidas Frequentes
+          </Link>
+        </nav>
+
+        {/* BOTÃO MOBILE */}
+        <button
+          type="button"
+          className="md:hidden text-white px-3 py-2 border border-white/10 rounded-xl bg-white/5"
+          onClick={() => setMobileOpen((v) => !v)}
+          aria-expanded={mobileOpen}
+          aria-label="Abrir menu"
+        >
+          ☰
+        </button>
+      </div>
+
+      {/* MENU MOBILE */}
+      {mobileOpen && (
+        <div className="md:hidden border-t border-white/10 bg-black/95 backdrop-blur">
+          <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4 text-sm">
+            <MobileDropdown
+              label="Tênis"
+              href="/tenis"
+              open={openTenis}
+              onToggle={() => setOpenTenis((v) => !v)}
+              items={[
+                { label: 'Masculino', href: '/tenis/masculino' },
+                { label: 'Feminino', href: '/tenis/feminino' },
+              ]}
+            />
+
+            <MobileDropdown
+              label="Roupas"
+              href="/roupas"
+              open={openRoupas}
+              onToggle={() => setOpenRoupas((v) => !v)}
+              items={[
+                { label: 'Masculino', href: '/roupas/masculino' },
+                { label: 'Feminino', href: '/roupas/feminino' },
+              ]}
+            />
+
+            <Link href="/acessorios" className="text-white hover:text-gray-300 transition">
+              Acessórios
             </Link>
 
-            {/* Desktop nav */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link
-                href="/tenis"
-                className="text-gray-300 hover:text-white transition-colors font-medium"
-              >
-                Tênis
-              </Link>
+            <Link href="/promocoes" className="text-white hover:text-gray-300 transition">
+              Promoções
+            </Link>
 
-              <Link
-                href="/roupas"
-                className="text-gray-300 hover:text-white transition-colors font-medium"
-              >
-                Roupas
-              </Link>
+            <Link href="/trocas-e-devolucoes" className="text-white hover:text-gray-300 transition">
+              Trocas e Devoluções
+            </Link>
 
-              <Link
-                href="/acessorios"
-                className="text-gray-300 hover:text-white transition-colors font-medium"
-              >
-                Acessórios
-              </Link>
-
-              <Link
-                href="/promocoes"
-                className="text-gray-300 hover:text-white transition-colors font-medium"
-              >
-                Promoções
-              </Link>
-
-              <Link
-                href="/trocas-e-devolucoes"
-                className="text-gray-300 hover:text-white transition-colors font-medium"
-              >
-                Trocas e Devoluções
-              </Link>
-
-              <Link
-                href="/duvidas-frequentes"
-                className="text-gray-300 hover:text-white transition-colors font-medium"
-              >
-                Dúvidas Frequentes
-              </Link>
-            </nav>
-
-            {/* Actions */}
-            <div className="flex items-center space-x-4">
-              {/* Search */}
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                className="p-2 text-gray-300 hover:text-white transition-colors"
-                aria-label="Buscar"
-              >
-                <Search size={20} />
-              </button>
-
-              {/* Cart */}
-              <Link
-                href="/carrinho"
-                className="relative p-2 text-gray-300 hover:text-white transition-colors"
-                aria-label="Carrinho"
-              >
-                <ShoppingCart size={20} />
-                {isMounted && totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-orange-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                    {totalItems}
-                  </span>
-                )}
-              </Link>
-
-              {/* Mobile menu button */}
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 text-gray-300 hover:text-white transition-colors"
-                aria-label="Menu"
-              >
-                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
+            <Link href="/duvidas-frequentes" className="text-white hover:text-gray-300 transition">
+              Dúvidas Frequentes
+            </Link>
           </div>
         </div>
-
-        {/* Mobile menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden glass border-t border-gray-800"
-            >
-              <nav className="px-4 py-4 space-y-2">
-                <Link
-                  href="/tenis"
-                  className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Tênis
-                </Link>
-
-                <Link
-                  href="/roupas"
-                  className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Roupas
-                </Link>
-
-                <Link
-                  href="/acessorios"
-                  className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Acessórios
-                </Link>
-
-                <Link
-                  href="/promocoes"
-                  className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Promoções
-                </Link>
-
-                <Link
-                  href="/trocas-e-devolucoes"
-                  className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Trocas e Devoluções
-                </Link>
-
-                <Link
-                  href="/duvidas-frequentes"
-                  className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Dúvidas Frequentes
-                </Link>
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
-
-      {/* Search modal */}
-      <AnimatePresence>
-        {isSearchOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-start justify-center pt-32"
-            onClick={() => setIsSearchOpen(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="w-full max-w-2xl mx-4"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="glass rounded-2xl p-6">
-                <div className="flex items-center space-x-4">
-                  <Search className="text-gray-400" size={24} />
-                  <input
-                    type="text"
-                    placeholder="Buscar produtos..."
-                    className="flex-1 bg-transparent border-none outline-none text-white text-lg placeholder-gray-500"
-                    autoFocus
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault()
-                        submitSearch()
-                      }
-                    }}
-                  />
-                  <button
-                    onClick={() => setIsSearchOpen(false)}
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    <X size={24} />
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+      )}
+    </header>
   )
 }
