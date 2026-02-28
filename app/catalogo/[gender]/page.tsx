@@ -57,14 +57,14 @@ function Banner({
       className="block relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 group"
     >
       {/* altura menor e mais elegante */}
-      <div className="relative w-full h-[230px] sm:h-[280px] md:h-[360px]">
+      <div className="relative w-full h-[340px] sm:h-[420px] md:h-[520px]">
         <Image
           src={src}
           alt={alt}
           fill
           priority
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 900px, 960px"
-          className="object-cover object-center"
+          className="object-contain object-center"
         />
 
         {/* overlay bem mais sutil (Nike é leve) */}
@@ -138,8 +138,8 @@ export default function CatalogoGeneroPage({
 
           {/* ROUPAS: aqui você pode manter título ou tirar também */}
           <Banner
-            href={`/catalogo/${gender}/roupas`}
-            src="/images/products/roupas/denim-jacket-washed-black/imagem.webp"
+  href={`/catalogo/${gender}/roupas`}
+  src="/images/products/roupas/SYNA-WORLD-MINIMAL.webp"
             alt="Banner Roupas"
             showOverlayText={true}
             eyebrow="Coleção"
