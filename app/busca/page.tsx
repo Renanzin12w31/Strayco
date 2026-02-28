@@ -3,7 +3,17 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { products } from '@/data/products'
+import products from '@/data/products.json'
+
+type Product = {
+  id: string
+  name: string
+  description?: string
+  price: number
+  images?: string[]
+  colors?: string[]
+  sizes?: string[]
+}
 
 function normalize(str: string) {
   return str
@@ -15,23 +25,25 @@ function normalize(str: string) {
 export default function BuscaPage() {
   const [q, setQ] = useState('')
 
+  const list = products as unknown as Product[]
+
   const results = useMemo(() => {
     const term = normalize(q.trim())
     if (!term) return []
 
-    return products.filter((p) => {
+    return list.filter((p) => {
       const hay = normalize(
         `${p.name} ${p.description ?? ''} ${(p.colors ?? []).join(' ')} ${(p.sizes ?? []).join(' ')}`
       )
       return hay.includes(term)
     })
-  }, [q])
+  }, [q, list])
 
   return (
     <main className="min-h-screen bg-black text-white pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-bold mb-3">Busca</h1>
-        <p className="text-gray-400 mb-8">Pesquise por nome, cor, tamanho ou marca.</p>
+        <h1 className="text-4xl md:text-5xl font-bold mb-3">Resultados da busca</h1>
+        <p className="text-gray-400 mb-8">Digite algo para buscar.</p>
 
         {/* INPUT */}
         <div className="mb-10">
@@ -43,7 +55,6 @@ export default function BuscaPage() {
           />
         </div>
 
-        {/* ESTADO VAZIO */}
         {!q.trim() ? (
           <p className="text-gray-400">Digite algo para buscar.</p>
         ) : results.length === 0 ? (
@@ -63,7 +74,7 @@ export default function BuscaPage() {
                 >
                   <div className="relative h-56 bg-black">
                     <Image
-                      src={p.images?.[0] ?? '/placeholder.webp'}
+                      src={p.images?.[0] ?? '/logo-stray.webp'}
                       alt={p.name}
                       fill
                       className="object-cover group-hover:scale-[1.02] transition"
