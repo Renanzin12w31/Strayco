@@ -31,16 +31,18 @@ function SubNav({ gender }: { gender: GenderSlug }) {
   )
 }
 
+type BannerVariant = 'tenis' | 'roupas'
+
 function Banner({
   href,
   src,
   alt,
-  variant = 'tenis', // 'tenis' (JA3) ou 'roupas' (SYNA)
+  variant = 'tenis',
 }: {
   href: string
   src: string
   alt: string
-  variant?: 'tenis' | 'roupas'
+  variant?: BannerVariant
 }) {
   const isTenis = variant === 'tenis'
 
@@ -58,23 +60,18 @@ function Banner({
         }`}
       >
         {/* ========= IMAGEM ========= */}
-
         {isTenis ? (
-          // ✅ JA3: cover com foco bom no mobile
-         <Image
-  src={src}
-  alt={alt}
-  fill
-  priority
-  sizes="100vw"
-  className={
-    variant === 'roupas'
-      ? 'object-contain object-[75%_center] md:object-[80%_center] scale-105 md:scale-110'
-      : 'object-cover object-center'
-  }
-/>
+          // ✅ TÊNIS (JA3): cover com foco bom no mobile
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
         ) : (
-          // ✅ ROUPAS: "moldura" (respiro) pra não encostar/cortar e manter o produto grande
+          // ✅ ROUPAS (SYNA): "moldura" (respiro) pra não encostar/cortar e manter o produto grande
           <div className="absolute inset-0 p-5 sm:p-8 md:p-12">
             <div className="relative w-full h-full">
               <Image
