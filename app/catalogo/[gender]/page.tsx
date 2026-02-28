@@ -32,7 +32,7 @@ export default function CatalogoGeneroPage({
 
         {/* HERO JA3 (SÓ NO MASCULINO) */}
         {showJa3Hero && (
-          <section className="relative mb-10 overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+          <section className="relative mb-10 overflow-hidden rounded-3xl border border-white/10 bg-white/5 group">
             <div className="relative h-[320px] md:h-[420px]">
               <Image
                 src="/images/products/tenis/JA3-WEB.webp"
@@ -41,41 +41,21 @@ export default function CatalogoGeneroPage({
                 priority
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-black/45" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
-            </div>
 
-            <div className="absolute inset-0 flex items-center">
-              <div className="px-8 md:px-14 max-w-xl">
-                <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
-                  CONTROLE <br /> O RITMO.
-                </h2>
+              {/* overlay leve (pra manter leitura do botão) */}
+              <div className="absolute inset-0 bg-black/20" />
 
-                <p className="text-gray-200 mt-3 text-base md:text-lg">
-                  Velocidade criada para decidir.
-                </p>
-
-               <div className="mt-8">
-  <Link
-    href="/produto/14"
-    className="
-      inline-flex items-center gap-2
-      px-6 py-3
-      rounded-full
-      border border-white/20
-      text-white
-      backdrop-blur-sm
-      bg-white/5
-      hover:bg-white/10
-      transition-all duration-300
-    "
-  >
-    Comprar
-    <span className="translate-x-0 group-hover:translate-x-1 transition">
-      →
-    </span>
-  </Link>
-</div>
+              {/* CTA discreto */}
+              <div className="absolute left-8 bottom-8 md:left-12 md:bottom-12">
+                <Link
+                  href="/produto/14"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-white backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-300"
+                >
+                  Comprar
+                  <span className="transform transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </Link>
               </div>
             </div>
           </section>
@@ -124,7 +104,10 @@ export default function CatalogoGeneroPage({
 
           {/* ✅ ACESSÓRIOS (SÓ FEMININO) */}
           {showAcessorios && (
-            <Link href={`/catalogo/${gender}/acessorios`} className="group block">
+            <Link
+              href={`/catalogo/${gender}/acessorios`}
+              className="group block"
+            >
               <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
                 <Image
                   src="/images/products/acessorios/vancleef-corrente.webp"
