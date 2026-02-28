@@ -163,8 +163,8 @@ function CartBadge({ count }: { count: number }) {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [openTenis, setOpenTenis] = useState(false)
-  const [openRoupas, setOpenRoupas] = useState(false)
+  const [openMasc, setOpenMasc] = useState(false)
+  const [openFem, setOpenFem] = useState(false)
 
   const cartCount = useCart((s) =>
     s.items.reduce((total, item) => total + item.quantity, 0)
@@ -172,8 +172,8 @@ export default function Header() {
 
   const closeMobile = () => {
     setMobileOpen(false)
-    setOpenTenis(false)
-    setOpenRoupas(false)
+    setOpenMasc(false)
+    setOpenFem(false)
   }
 
   return (
@@ -194,20 +194,20 @@ export default function Header() {
         {/* CENTRO: MENU */}
         <nav className="hidden md:flex items-center justify-center gap-10 text-sm text-white">
           <DesktopDropdown
-            label="Tênis"
-            href="/tenis"
+            label="Masculino"
+            href="/catalogo/masculino"
             items={[
-              { label: 'Masculino', href: '/tenis/masculino' },
-              { label: 'Feminino', href: '/tenis/feminino' },
+              { label: 'Tênis', href: '/catalogo/masculino/tenis' },
+              { label: 'Roupas', href: '/catalogo/masculino/roupas' },
             ]}
           />
 
           <DesktopDropdown
-            label="Roupas"
-            href="/roupas"
+            label="Feminino"
+            href="/catalogo/feminino"
             items={[
-              { label: 'Masculino', href: '/roupas/masculino' },
-              { label: 'Feminino', href: '/roupas/feminino' },
+              { label: 'Tênis', href: '/catalogo/feminino/tenis' },
+              { label: 'Roupas', href: '/catalogo/feminino/roupas' },
             ]}
           />
 
@@ -291,26 +291,26 @@ export default function Header() {
             </div>
 
             <MobileDropdown
-              label="Tênis"
-              href="/tenis"
-              open={openTenis}
-              onToggle={() => setOpenTenis((v) => !v)}
+              label="Masculino"
+              href="/catalogo/masculino"
+              open={openMasc}
+              onToggle={() => setOpenMasc((v) => !v)}
               onNavigate={closeMobile}
               items={[
-                { label: 'Masculino', href: '/tenis/masculino' },
-                { label: 'Feminino', href: '/tenis/feminino' },
+                { label: 'Tênis', href: '/catalogo/masculino/tenis' },
+                { label: 'Roupas', href: '/catalogo/masculino/roupas' },
               ]}
             />
 
             <MobileDropdown
-              label="Roupas"
-              href="/roupas"
-              open={openRoupas}
-              onToggle={() => setOpenRoupas((v) => !v)}
+              label="Feminino"
+              href="/catalogo/feminino"
+              open={openFem}
+              onToggle={() => setOpenFem((v) => !v)}
               onNavigate={closeMobile}
               items={[
-                { label: 'Masculino', href: '/roupas/masculino' },
-                { label: 'Feminino', href: '/roupas/feminino' },
+                { label: 'Tênis', href: '/catalogo/feminino/tenis' },
+                { label: 'Roupas', href: '/catalogo/feminino/roupas' },
               ]}
             />
 
