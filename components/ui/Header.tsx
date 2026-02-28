@@ -200,7 +200,7 @@ export default function Header() {
         {/* DIREITA: AÇÕES (LUPA + CARRINHO) */}
         <div className="hidden md:flex items-center justify-end gap-3 text-white">
           <Link
-            href="/buscar"
+            href="/busca"
             className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition"
             aria-label="Buscar"
           >
@@ -235,7 +235,7 @@ export default function Header() {
             {/* ações mobile */}
             <div className="flex gap-3">
               <Link
-                href="/buscar"
+                href="/busca"
                 onClick={closeMobile}
                 className="flex-1 p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition text-white flex items-center justify-center gap-2"
               >
