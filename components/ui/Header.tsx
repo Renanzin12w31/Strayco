@@ -121,7 +121,7 @@ export default function Header() {
         {/* LOGO (imagem) */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/images/logo-stray.webp" // <-- troque aqui se o arquivo tiver outro nome/caminho
+            src="/logo-stray.webp" // <-- troque aqui se o arquivo tiver outro nome/caminho
             alt="Strayco"
             width={140}
             height={40}
