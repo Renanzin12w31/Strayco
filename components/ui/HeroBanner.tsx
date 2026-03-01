@@ -2,14 +2,26 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function HeroBanner() {
   return (
     <section className="relative min-h-[62vh] md:min-h-[72vh] w-full flex items-center justify-center overflow-hidden bg-black pt-24">
-      {/* Background Glow Effect */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-96 h-96 bg-orange-primary/20 rounded-full blur-[120px] animate-glow-pulse" />
+      {/* Background banner */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/products/Banner.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
       </div>
+
+      {/* Readability overlay */}
+      <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
       {/* Content */}
       <motion.div
@@ -28,24 +40,14 @@ export default function HeroBanner() {
           <img src="/logo-stray.webp" alt="Stray Company" className="h-24 md:h-32 w-auto" />
         </motion.div>
 
-        {/* Headline */}
-        <motion.h1
+        {/* Short positioning line (keeps the hero clean and lets the banner shine) */}
+        <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
-          className="text-white font-bold tracking-tight text-4xl md:text-6xl"
+          className="text-white/85 text-sm md:text-base font-medium tracking-widest uppercase"
         >
-          Streetwear &amp; Sneakers
-        </motion.h1>
-
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-4 text-gray-300 text-base md:text-lg font-light tracking-wide max-w-2xl mx-auto"
-        >
-          Peças selecionadas com estética noir, entrega rápida e suporte via WhatsApp.
+          Drops selecionados • Estoque limitado
         </motion.p>
 
         {/* CTAs */}
@@ -53,7 +55,7 @@ export default function HeroBanner() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.55 }}
-          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3"
+          className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <Link
             href="/tenis"
@@ -87,9 +89,6 @@ export default function HeroBanner() {
         </motion.div>
         */}
       </motion.div>
-
-      {/* Gradient Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
     </section>
   )
 }
