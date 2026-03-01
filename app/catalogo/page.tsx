@@ -35,7 +35,7 @@ export default function CatalogoPage() {
           <Link href="/catalogo/feminino" className="group">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
-                src="/images/products/roupas/denim-jacket-washed-black/imagem.webp"
+                src="/images/catalog/adidas-samba-sabrina.webp"
                 alt="Feminino"
                 fill
                 className="object-cover opacity-70 group-hover:opacity-90 transition"
