@@ -30,7 +30,6 @@ export default function HomePage() {
   return (
     <>
       <HeroBanner />
-      <TrustBar />
 
       <div className="bg-black">
         {newProducts.length > 0 && (
@@ -48,6 +47,11 @@ export default function HomePage() {
         {onSale.length > 0 && (
           <LazyProductCarousel title="Promoções" products={transformProducts(onSale)} />
         )}
+
+        {/* Benefícios (movido para não “quebrar” a divisão entre Hero e Lançamentos) */}
+        <div className="pt-6 pb-10">
+          <TrustBar />
+        </div>
       </div>
     </>
   )
