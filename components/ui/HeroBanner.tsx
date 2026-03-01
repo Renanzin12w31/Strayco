@@ -29,7 +29,7 @@ export default function HeroBanner() {
             {/* LOGO (use Next/Image). Se o arquivo não existir, você vai ver 404 no console/network. */}
             <div className="flex justify-center mb-4">
               <Image
-                src="/images/logo-stray.webp"
+                src="/logo-stray.webp"
                 alt="Stray Company"
                 width={140}
                 height={60}
