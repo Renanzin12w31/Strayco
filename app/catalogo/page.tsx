@@ -35,11 +35,12 @@ export default function CatalogoPage() {
           <Link href="/catalogo/feminino" className="group">
             <div className="relative h-72 rounded-2xl overflow-hidden border border-white/10 bg-white/5">
               <Image
-                src="/images/catalog/adidas-samba-sabrina.webp"
-                alt="Feminino"
-                fill
-                className="object-cover opacity-70 group-hover:opacity-90 transition"
-              />
+  src="/images/products/adidas-samba-sabrina.webp"
+  alt="Feminino"
+  fill
+  className="object-cover"
+  sizes="100vw"
+/>
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               <div className="absolute bottom-6 left-6">
                 <h2 className="text-3xl font-bold text-white">Feminino</h2>
