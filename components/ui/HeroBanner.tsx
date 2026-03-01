@@ -1,125 +1,76 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
 
 export default function HeroBanner() {
-  const slides = useMemo(
-    () => [
-      {
-        src: '/images/products/noite-iluiminosa.webp',
-        alt: 'Banner Strayco - Noite Iluminosa',
-      },
-      {
-        src: '/images/products/Banner.webp',
-        alt: 'Banner Strayco - Destaques',
-      },
-    ],
-    [],
-  )
-
-  const [active, setActive] = useState(0)
-
-  useEffect(() => {
-    if (slides.length <= 1) return
-    const id = window.setInterval(() => {
-      setActive((prev) => (prev + 1) % slides.length)
-    }, 6500)
-    return () => window.clearInterval(id)
-  }, [slides.length])
-
-  const goPrev = () => setActive((p) => (p - 1 + slides.length) % slides.length)
-  const goNext = () => setActive((p) => (p + 1) % slides.length)
-
   return (
-    <section className="relative w-full bg-black overflow-hidden">
-      {/* HERO com altura controlada (não “come” a página) */}
-      <div className="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-[520px]">
-        {/* Slides */}
-        {slides.map((s, idx) => {
-          const isActive = idx === active
-          return (
-            <div
-              key={s.src}
-              className={`absolute inset-0 transition-opacity duration-700 ${
-                isActive ? 'opacity-100' : 'opacity-0'
-              }`}
-              aria-hidden={!isActive}
-            >
-              {/* Background fill (preenche as laterais sem cortar a arte principal) */}
+    <section className="w-full bg-black">
+      <div className="mx-auto max-w-6xl px-4 pt-24 pb-6">
+        {/* HERO (estilo template: banner + bloco) */}
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black shadow-[0_25px_80px_rgba(0,0,0,0.55)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 min-h-[360px] md:min-h-[420px]">
+            {/* ESQUERDA: metade com a imagem (noite-iluiminosa) */}
+            <div className="relative">
               <Image
-                src={s.src}
-                alt=""
+                src="/images/products/noite-iluiminosa.webp"
+                alt="Banner Strayco"
                 fill
-                priority={idx === 0}
-                sizes="100vw"
-                className="object-cover object-center blur-2xl scale-110 opacity-35"
+                priority
+                sizes="(max-width: 768px) 100vw, 60vw"
+                className="object-cover object-center"
               />
-
-              {/* Foreground (100% visível) */}
-              <Image
-                src={s.src}
-                alt={s.alt}
-                fill
-                priority={idx === 0}
-                sizes="100vw"
-                className="object-contain object-center"
-              />
-
-              {/* Fade leve embaixo para separar do conteúdo */}
-              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black via-black/50 to-transparent" />
+              {/* leve gradiente pra integrar com o bloco escuro */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-black/10 to-black/70 md:to-black/80" />
             </div>
-          )
-        })}
 
-        {/* LOGO POR CIMA (fixa, independente do slide) */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-          <Image
-            src="/logo-stray.webp"
-            alt="Stray Company"
-            width={140}
-            height={60}
-            priority
-            className="opacity-95"
-          />
+            {/* DIREITA: bloco escuro com CTA */}
+            <div className="relative flex items-center">
+              <div className="w-full px-6 py-10 md:px-10">
+                <div className="flex justify-center md:justify-start mb-6">
+                  <Image
+                    src="/logo-stray.webp"
+                    alt="Stray Company"
+                    width={140}
+                    height={60}
+                    priority
+                    className="h-auto w-[120px] md:w-[140px]"
+                  />
+                </div>
+
+                <h1 className="text-white text-3xl md:text-4xl font-bold leading-tight">
+                  Drops selecionados
+                </h1>
+                <p className="text-white/70 mt-3 max-w-md">
+                  Estoque limitado. Garanta o seu agora e finalize pelo WhatsApp.
+                </p>
+
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <Link
+                    href="/catalogo/masculino/tenis"
+                    className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-5 py-3 font-medium text-black hover:bg-orange-600 transition"
+                  >
+                    Comprar agora
+                  </Link>
+                  <Link
+                    href="/promocoes"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/15 px-5 py-3 font-medium text-white hover:border-white/30 transition"
+                  >
+                    Ver promoções
+                  </Link>
+                </div>
+
+                {/* detalhe sutil */}
+                <p className="mt-6 text-[11px] tracking-[0.25em] text-white/60">
+                  STRAYCO • STREET & SNEAKERS
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Fade inferior pra “cortar” bonito antes da vitrine */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black via-black/60 to-transparent" />
         </div>
-
-        {/* Controles (sutis) */}
-        {slides.length > 1 && (
-          <>
-            <button
-              type="button"
-              onClick={goPrev}
-              aria-label="Banner anterior"
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 rounded-full border border-white/15 bg-black/35 hover:bg-black/55 transition px-3 py-2 text-white/90"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={goNext}
-              aria-label="Próximo banner"
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 rounded-full border border-white/15 bg-black/35 hover:bg-black/55 transition px-3 py-2 text-white/90"
-            >
-              ›
-            </button>
-
-            {/* Dots */}
-            <div className="absolute bottom-3 left-0 right-0 z-20 flex items-center justify-center gap-2">
-              {slides.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setActive(i)}
-                  aria-label={`Ir para banner ${i + 1}`}
-                  className={`h-2 w-2 rounded-full transition ${
-                    i === active ? 'bg-white/85' : 'bg-white/25 hover:bg-white/45'
-                  }`}
-                />
-              ))}
-            </div>
-          </>
-        )}
       </div>
     </section>
   )
